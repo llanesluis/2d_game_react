@@ -1,4 +1,4 @@
-import { LEVELS } from "@/constants";
+import { LevelData, LEVELS } from "@/constants";
 import { useGameStore } from "@/stores/game-store";
 import { useEffect } from "react";
 import BeforeStartGame from "./before-start-game";
@@ -6,51 +6,66 @@ import Level from "./level";
 
 export default function GameScene() {
   const gameState = useGameStore((s) => s.gameState);
-  const level = useGameStore((s) => s.level);
 
+  const level = useGameStore((s) => s.level);
   const levelData = useGameStore((s) => s.levelData);
   const setLevelData = useGameStore((s) => s.setLevelData);
   const restartLevel = useGameStore((s) => s.restartLevel);
 
-  const progress = useGameStore((s) => s.progress);
   const goToNextLevel = useGameStore((s) => s.goToNextLevel);
   const goToEndScene = useGameStore((s) => s.goToEndScene);
 
   useEffect(() => {
-    // Controlar el nivel cuando se complete el progreso
-    if (progress === levelData?.goal) {
-      // Si es el último nivel, ir al final del juego
-      if (levelData?.level === LEVELS.length) {
-        goToEndScene();
-        return;
-      }
-
-      goToNextLevel();
-      restartLevel();
-    }
-  }, [
-    goToEndScene,
-    goToNextLevel,
-    levelData?.goal,
-    levelData?.level,
-    progress,
-    restartLevel,
-  ]);
-
-  useEffect(() => {
     const lvl = LEVELS.find((l) => l.level === level);
+
     if (!lvl) return;
 
-    restartLevel();
     setLevelData(lvl);
+    restartLevel();
   }, [level, restartLevel, setLevelData]);
 
   if (!levelData) return null;
 
+  if (gameState === "idle") {
+    return (
+      <section className="relative isolate">
+        <BeforeStartGame />
+      </section>
+    );
+  }
+
   return (
     <section className="relative isolate">
-      {gameState === "idle" && <BeforeStartGame />}
-      {gameState === "running" && <Level key={levelData.level} />}
+      {level === 1 && (
+        <Level
+          key={1}
+          levelData={LEVELS.find((l) => l.level === 1) as LevelData}
+          onCompleteLevel={() => {
+            goToNextLevel();
+            restartLevel();
+          }}
+        />
+      )}
+      {level === 2 && (
+        <Level
+          key={2}
+          levelData={LEVELS.find((l) => l.level === 2) as LevelData}
+          onCompleteLevel={() => {
+            goToNextLevel();
+            restartLevel();
+          }}
+        />
+      )}
+      {level === 3 && (
+        <Level
+          key={3}
+          levelData={LEVELS.find((l) => l.level === 3) as LevelData}
+          onCompleteLevel={() => {
+            goToEndScene();
+            restartLevel();
+          }}
+        />
+      )}
     </section>
   );
 }

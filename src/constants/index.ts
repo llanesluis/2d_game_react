@@ -63,6 +63,7 @@ type Level = 1 | 2 | 3;
 export type LevelData = {
   level: Level;
   time: number;
+  speed: number;
   imageSrc: string;
   text: string;
   goal: number;
@@ -70,172 +71,14 @@ export type LevelData = {
   containers: Container[];
 } | null;
 
-// export const LEVELS = [
-//   {
-//     level: 1,
-//     time: 90,
-//     imageSrc: "/src/assets/images/places/school_2.gif",
-//     text: "Recoge los residuos correctamente en la escuela. Separa cada tipo de basura en su contenedor correspondiente.",
-//     goal: 20,
-//     trash: [
-//       {
-//         name: "avionPapel",
-//         spriteSrc: "/src/assets/images/trash/avionPapel.png",
-//         containerName: "azulPapelCarton",
-//       },
-//       {
-//         name: "botellaPlastico",
-//         spriteSrc: "/src/assets/images/trash/botellaPlastico.png",
-//         containerName: "amarilloPlasticosMetal",
-//       },
-//       {
-//         name: "platano",
-//         spriteSrc: "/src/assets/images/trash/platano.png",
-//         containerName: "naranjaOrganicos",
-//       },
-//       {
-//         name: "regla",
-//         spriteSrc: "/src/assets/images/trash/regla.png",
-//         containerName: "grisGeneral",
-//       },
-//     ],
-//     containers: [
-//       {
-//         name: "azulPapelCarton",
-//         spriteSrc: "/src/assets/images/containers/azulPapelCarton.png",
-//       },
-//       {
-//         name: "amarilloPlasticosMetal",
-//         spriteSrc: "/src/assets/images/containers/amarilloPlasticosMetal.png",
-//       },
-//       {
-//         name: "naranjaOrganicos",
-//         spriteSrc: "/src/assets/images/containers/naranjaOrganicos.png",
-//       },
-//       {
-//         name: "grisGeneral",
-//         spriteSrc: "/src/assets/images/containers/grisGeneral.png",
-//       },
-//     ],
-//   },
-//   {
-//     level: 2,
-//     time: 60,
-//     imageSrc: "/src/assets/images/places/city_4.gif",
-//     text: "La ciudad está llena de residuos. Ayuda a clasificar cada tipo de basura correctamente.",
-//     goal: 25,
-//     trash: [
-//       {
-//         name: "botellaPlastico",
-//         spriteSrc: "/src/assets/images/trash/botellaPlastico.png",
-//         containerName: "amarilloPlasticosMetal",
-//       },
-//       {
-//         name: "carton",
-//         spriteSrc: "/src/assets/images/trash/carton.png",
-//         containerName: "azulPapelCarton",
-//       },
-//       {
-//         name: "lata",
-//         spriteSrc: "/src/assets/images/trash/lata.png",
-//         containerName: "amarilloPlasticosMetal",
-//       },
-//       {
-//         name: "manzana",
-//         spriteSrc: "/src/assets/images/trash/manzana.png",
-//         containerName: "naranjaOrganicos",
-//       },
-//       {
-//         name: "botellaVidrio",
-//         spriteSrc: "/src/assets/images/trash/botellaVidrio.png",
-//         containerName: "verdeVidrio",
-//       },
-//     ],
-//     containers: [
-//       {
-//         name: "amarilloPlasticosMetal",
-//         spriteSrc: "/src/assets/images/containers/amarilloPlasticosMetal.png",
-//       },
-//       {
-//         name: "azulPapelCarton",
-//         spriteSrc: "/src/assets/images/containers/azulPapelCarton.png",
-//       },
-//       {
-//         name: "naranjaOrganicos",
-//         spriteSrc: "/src/assets/images/containers/naranjaOrganicos.png",
-//       },
-//       {
-//         name: "verdeVidrio",
-//         spriteSrc: "/src/assets/images/containers/verdeVidrio.png",
-//       },
-//     ],
-//   },
-//   {
-//     level: 3,
-//     time: 45,
-//     imageSrc: "/src/assets/images/places/beach.gif",
-//     text: "Ayuda a limpiar la playa. Clasifica correctamente cada tipo de residuo en el contenedor adecuado.",
-//     goal: 30,
-//     trash: [
-//       {
-//         name: "botellaPlastico",
-//         spriteSrc: "/src/assets/images/trash/botellaPlastico.png",
-//         containerName: "amarilloPlasticosMetal",
-//       },
-//       {
-//         name: "bolsaBasura",
-//         spriteSrc: "/src/assets/images/trash/bolsaBasura.png",
-//         containerName: "grisGeneral",
-//       },
-//       {
-//         name: "botellaVidrio",
-//         spriteSrc: "/src/assets/images/trash/botellaVidrio.png",
-//         containerName: "verdeVidrio",
-//       },
-//       {
-//         name: "lata",
-//         spriteSrc: "/src/assets/images/trash/lata.png",
-//         containerName: "amarilloPlasticosMetal",
-//       },
-//       {
-//         name: "coco",
-//         spriteSrc: "/src/assets/images/trash/coco.png",
-//         containerName: "naranjaOrganicos",
-//       },
-//       {
-//         name: "vasoPlastico",
-//         spriteSrc: "/src/assets/images/trash/vasoPlastico.png",
-//         containerName: "grisGeneral",
-//       },
-//     ],
-//     containers: [
-//       {
-//         name: "amarilloPlasticosMetal",
-//         spriteSrc: "/src/assets/images/containers/amarilloPlasticosMetal.png",
-//       },
-//       {
-//         name: "verdeVidrio",
-//         spriteSrc: "/src/assets/images/containers/verdeVidrio.png",
-//       },
-//       {
-//         name: "grisGeneral",
-//         spriteSrc: "/src/assets/images/containers/grisGeneral.png",
-//       },
-//       {
-//         name: "naranjaOrganicos",
-//         spriteSrc: "/src/assets/images/containers/naranjaOrganicos.png",
-//       },
-//     ],
-//   },
-// ] satisfies LevelData[];
-
 export const LEVELS = [
   {
     level: 1,
     time: 90,
+    speed: 1,
     imageSrc: "/src/assets/images/places/school_2.gif",
     text: "Recoge los residuos correctamente en la escuela. Separa cada tipo de basura en su contenedor correspondiente.",
-    goal: 20,
+    goal: 5,
     trash: [
       {
         name: "bolsaBasura",
@@ -305,9 +148,10 @@ export const LEVELS = [
   {
     level: 2,
     time: 75,
+    speed: 1.25,
     imageSrc: "/src/assets/images/places/beach.gif",
     text: "Ayuda a limpiar la playa. Clasifica correctamente cada tipo de residuo en el contenedor adecuado.",
-    goal: 25,
+    goal: 5,
     trash: [
       {
         name: "lata",
@@ -387,9 +231,10 @@ export const LEVELS = [
   {
     level: 3,
     time: 60,
+    speed: 1.5,
     imageSrc: "/src/assets/images/places/city_4.gif",
     text: "La ciudad está llena de residuos. Ayuda a clasificar cada tipo de basura correctamente.",
-    goal: 25,
+    goal: 5,
     trash: [
       {
         name: "papel",

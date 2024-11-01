@@ -31,7 +31,6 @@ type State = {
 type Actions = {
   setPlayerName: (playerName: State["playerName"]) => void;
 
-  setCurrentScene: (scene: State["currentScene"]) => void;
   goToStartScene: () => void;
   goToGameScene: () => void;
   goToEndScene: () => void;
@@ -48,7 +47,6 @@ type Actions = {
   restartLevel: () => void;
 
   setTime: (timeInSeconds: number) => void;
-  getTime: () => number;
   decreaseOneSecond: () => void;
   resetTime: () => void;
 
@@ -76,7 +74,6 @@ export const useGameStore = create<State & Actions>((set, get) => ({
 
   setPlayerName: (playerName) => set({ playerName }),
 
-  setCurrentScene: (currentScene) => set({ currentScene }),
   goToStartScene: () => set({ currentScene: "start" }),
   goToGameScene: () => set({ currentScene: "game" }),
   goToEndScene: () => set({ currentScene: "end" }),
@@ -91,10 +88,6 @@ export const useGameStore = create<State & Actions>((set, get) => ({
   goToNextLevel: () => {
     const currentLevel = get().level;
 
-    if (currentLevel >= 3) {
-      return set({ level: currentLevel });
-    }
-
     const nextLevelData = LEVELS.find((l) => l.level === currentLevel + 1);
     if (!nextLevelData) return;
 
@@ -105,14 +98,12 @@ export const useGameStore = create<State & Actions>((set, get) => ({
   },
   setLevelData: (levelData) => {
     set({ levelData });
-    console.log(levelData);
   },
   restartLevel: () => {
     set({ time: get().levelData?.time, progress: INITIAL_STATE.progress });
   },
 
   setTime: (timeInSeconds) => set({ time: timeInSeconds }),
-  getTime: () => get().time,
   decreaseOneSecond: () => set({ time: get().time - 1 }),
   resetTime: () => set({ time: get().levelData?.time }),
 

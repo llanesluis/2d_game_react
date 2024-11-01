@@ -6,10 +6,11 @@ import { useEffect } from "react";
 export default function Timer() {
   const time = useGameStore((s) => s.time);
   const decreaseOneSecond = useGameStore((s) => s.decreaseOneSecond);
+  const isGamePaused = useGameStore((s) => s.gameState === "paused");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (time === 0) {
+      if (time === 0 || isGamePaused) {
         clearInterval(intervalId);
         return;
       }
@@ -18,7 +19,7 @@ export default function Timer() {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [decreaseOneSecond, time]);
+  }, [decreaseOneSecond, isGamePaused, time]);
 
   return (
     <div className="flex select-none flex-col items-center text-neutral-50">

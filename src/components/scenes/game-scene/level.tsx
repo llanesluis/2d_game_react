@@ -1,40 +1,55 @@
+import Check from "@/components/icons/Check";
+import Close from "@/components/icons/Close";
 import Message from "@/components/icons/Message";
+import { HappyMood, SadMood } from "@/components/icons/Mood";
+import Next from "@/components/icons/Next";
+import Repeat from "@/components/icons/Repeat";
+import Undo from "@/components/icons/Undo";
+import { AlertDialog, AlertDialogContent } from "@/components/ui/alert-dialog";
+import { Progress } from "@/components/ui/progress";
+import { LevelData } from "@/constants";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/stores/game-store";
-import Timer from "./timer";
+import { calculateMinutesAndSeconds } from "@/utils";
+import { useEffect } from "react";
 import LevelInfoButton from "./level-info-button";
-import { Progress } from "@/components/ui/progress";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { SadMood } from "@/components/icons/Mood";
-import Undo from "@/components/icons/Undo";
-import Repeat from "@/components/icons/Repeat";
+import Timer from "./timer";
 import TrashContainer from "./trash-container";
 
-export default function Level() {
+interface LevelProps {
+  levelData: LevelData;
+  onCompleteLevel: () => void;
+}
+
+export default function Level({ levelData, onCompleteLevel }: LevelProps) {
   const playerName = useGameStore((s) => s.playerName);
   const gameState = useGameStore((s) => s.gameState);
+  const setGameState = useGameStore((s) => s.setGameState);
+
   const progress = useGameStore((s) => s.progress);
   const time = useGameStore((s) => s.time);
 
-  const levelData = useGameStore((s) => s.levelData);
-
-  // const goToNextLevel = useGameStore((s) => s.goToNextLevel);
+  const isLevelCompleted = progress === levelData?.goal;
 
   const calculateProgressBar = () => {
     if (!levelData?.goal) throw Error("levelData.goal is undefined");
     return (progress / levelData?.goal) * 100;
   };
 
-  // useEffect(() => {
-  //   const isLevelCompleted = progress === levelData?.goal;
-  //   if (isLevelCompleted) goToNextLevel();
-  // }, [goToNextLevel, levelData?.goal, progress]);
+  useEffect(() => {
+    setGameState(isLevelCompleted ? "paused" : "running");
+  }, [isLevelCompleted, setGameState]);
 
   return (
     <div className="relative size-full overflow-hidden">
       <BackgroundImage imageSrc={levelData?.imageSrc} />
 
       <ResetLevelModal openModal={time === 0} />
+
+      <LevelCompletedModal
+        openModal={isLevelCompleted}
+        handleLevelCompleted={onCompleteLevel}
+      />
 
       {/* info container */}
       <div
@@ -43,7 +58,7 @@ export default function Level() {
           "flex flex-col justify-between gap-2",
           "bg-black/70 p-2 backdrop-blur",
           "translate-y-[-100%] transition-all duration-150 ease-out",
-          gameState === "running" && "translate-y-0",
+          "translate-y-0 animate-in",
         )}
       >
         <div className="flex gap-4">
@@ -60,6 +75,7 @@ export default function Level() {
           <div className="flex gap-2">
             {levelData?.trash.map((item) => (
               <img
+                key={item.name}
                 src={item.spriteSrc}
                 alt={item.name}
                 className="h-9 max-w-8"
@@ -69,10 +85,9 @@ export default function Level() {
         </div>
 
         <div className="absolute right-2 top-5">
-          {gameState === "running" && <Timer />}
+          {gameState !== "idle" && <Timer />}
         </div>
 
-        {/* todo: extra info  */}
         <div className="absolute bottom-3 left-4">
           <LevelInfoButton />
         </div>
@@ -87,6 +102,7 @@ export default function Level() {
       >
         {levelData?.containers.map((container) => (
           <TrashContainer
+            key={container.name}
             name={container.name}
             spriteSrc={container.spriteSrc}
           />
@@ -123,7 +139,6 @@ function BackgroundImage({ imageSrc }: { imageSrc?: string }) {
         alt="Level image"
         className={cn(
           "absolute inset-0 bottom-0 z-[-1] size-full object-cover object-right-bottom",
-          // "animate-image-background",
         )}
       />
       <div className="mask-image absolute inset-0 z-[-1] bg-black/20"></div>
@@ -138,17 +153,23 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
   );
 
   return (
-    <Dialog open={openModal}>
-      <DialogContent className="flex flex-col items-center gap-8">
-        <SadMood className="size-24 text-red-500" />
+    <AlertDialog open={openModal}>
+      <AlertDialogContent className="flex flex-col items-center gap-8">
+        <div className="flex items-center gap-4">
+          <Close className="filter-blur size-20 text-blue-500" />
+          <SadMood className="filter-blur size-40 text-red-500" />
+          <Close className="filter-blur size-20 text-blue-500" />
+        </div>
 
         <div className="text-center">
           <h2 className="text-2xl">¡Perdiste!</h2>
-          <p>Puedes intentar nuevamente o salir del juego.</p>
+          <p>
+            Puedes <strong>intentar nuevamente</strong> o salir del juego.
+          </p>
         </div>
 
         {/* botones */}
-        <div className="flex items-center justify-center gap-4">
+        <div className="mb-4 flex items-center justify-center gap-4">
           <button
             className={cn(
               "flex items-center gap-2",
@@ -170,7 +191,50 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
             SALIR
           </button>
         </div>
-      </DialogContent>
-    </Dialog>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+function LevelCompletedModal({
+  openModal,
+  handleLevelCompleted,
+}: {
+  openModal: boolean;
+  handleLevelCompleted: () => void;
+}) {
+  const levelData = useGameStore((s) => s.levelData);
+  const time = useGameStore((s) => s.time);
+
+  return (
+    <AlertDialog open={openModal}>
+      <AlertDialogContent className="flex flex-col items-center gap-8">
+        <div className="flex items-center gap-4">
+          <Check className="filter-blur size-20 text-blue-500" />
+          <HappyMood className="filter-blur size-40 text-green-500" />
+          <Check className="filter-blur size-20 text-blue-500" />
+        </div>
+
+        <div className="text-center">
+          <h2 className="text-2xl">{`¡Completaste el nivel ${levelData?.level}!`}</h2>
+          <p>
+            Te quedaron <strong>{calculateMinutesAndSeconds(time)}</strong> de
+            tiempo.
+          </p>
+        </div>
+
+        {/* botones */}
+        <button
+          className={cn(
+            "mb-4 flex items-center gap-2",
+            "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
+          )}
+          onClick={handleLevelCompleted}
+        >
+          <Next className="size-6" />
+          CONTINUAR
+        </button>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

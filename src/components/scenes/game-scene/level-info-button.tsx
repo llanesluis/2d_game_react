@@ -26,7 +26,7 @@ export default function LevelInfoButton() {
         <DialogHeader>
           <DialogTitle
             className={cn(
-              "flex items-center justify-center gap-2 space-y-0 pb-4",
+              "flex items-center justify-center gap-2 space-y-0",
               "filter-blur text-2xl text-blue-500",
             )}
           >
@@ -36,10 +36,13 @@ export default function LevelInfoButton() {
           </DialogTitle>
         </DialogHeader>
 
-        <DialogDescription className="mb-4 border-b-2 pb-2">
-          {/* Incrusté el html con dangerouslySetInnerHTML para que pueda usar tags html */}
-          <p dangerouslySetInnerHTML={{ __html: instructions }} />
+        <DialogDescription className="border-b-2 pb-2">
+          El tiempo <strong>seguirá corriendo</strong>, consulta las
+          instrucciones y ayuda bajo tu propio riesgo.
         </DialogDescription>
+
+        {/* Incrusté el html con dangerouslySetInnerHTML para que pueda usar tags html */}
+        <p dangerouslySetInnerHTML={{ __html: instructions }} />
 
         <ApoyoVisual />
       </DialogContent>
