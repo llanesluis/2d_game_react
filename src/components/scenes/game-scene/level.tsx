@@ -17,6 +17,7 @@ import Timer from "./timer";
 import TrashContainer from "./trash-container";
 import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 import { useAnimatedText } from "./hooks/useAnimatedText";
+import TrashItem from "./trash-item";
 
 interface LevelProps {
   levelData: LevelData;
@@ -90,12 +91,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
         <div className="mb-2 flex items-center gap-4 pl-14">
           <div className="flex gap-2">
             {levelData?.trash.map((item) => (
-              <img
-                key={item.name}
-                src={item.spriteSrc}
-                alt={item.name}
-                className="h-9 max-w-8"
-              />
+              <TrashItem key={item.name} {...item} />
             ))}
           </div>
         </div>
@@ -149,7 +145,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
 
 function BackgroundImage({ imageSrc }: { imageSrc?: string }) {
   return (
-    <div className="relative z-[-1] h-full">
+    <div className="relative z-[-1] h-full select-none">
       <img
         src={imageSrc}
         alt="Level image"
