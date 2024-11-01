@@ -1,25 +1,29 @@
 import Clock from "@/components/icons/Clock";
+import { useGameStore } from "@/stores/game-store";
 import { calculateMinutesAndSeconds } from "@/utils";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export default function Timer({ timeInSeconds }: { timeInSeconds: number }) {
-  const [time, setTime] = useState(timeInSeconds);
+export default function Timer() {
+  const time = useGameStore((s) => s.time);
+  const decreaseOneSecond = useGameStore((s) => s.decreaseOneSecond);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTime((prevTime) => {
-        if (prevTime === 0) return 0;
-        return prevTime - 1;
-      });
+      if (time === 0) {
+        clearInterval(intervalId);
+        return;
+      }
+
+      decreaseOneSecond();
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [decreaseOneSecond, time]);
 
   return (
     <div className="flex select-none flex-col items-center text-neutral-50">
-      <Clock className="size-6" />
-      <span className="text-2xl">{calculateMinutesAndSeconds(time)}</span>
+      <Clock className="size-8" />
+      <span className="text-5xl">{calculateMinutesAndSeconds(time)}</span>
     </div>
   );
 }

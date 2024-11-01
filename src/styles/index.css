@@ -214,6 +214,10 @@ body {
     animation: credits 12s linear forwards;
   }
 
+  .animate-image-background {
+    animation: move-from-left-to-right 12s linear alternate infinite;
+  }
+
   strong {
     font-weight: normal;
     color: yellow;
@@ -241,6 +245,15 @@ body {
     }
     100% {
       transform: translateY(-50%);
+    }
+  }
+
+  @keyframes move-from-left-to-right {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: -100%; /* Mueve hacia el borde derecho */
     }
   }
 }

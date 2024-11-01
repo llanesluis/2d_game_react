@@ -2,10 +2,13 @@ import Alert from "@/components/icons/Alert";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import ApoyoVisual from "./apoyo-visual";
 
 export default function LevelInfoButton() {
   return (
@@ -20,19 +23,25 @@ export default function LevelInfoButton() {
       </DialogTrigger>
 
       <DialogContent>
-        <DialogHeader
-          className={cn(
-            "flex-row items-center justify-center gap-2 space-y-0 pb-4",
-            "filter-blur text-2xl text-blue-500",
-          )}
-        >
-          <Alert className="size-6" />
-          <span className="">Instrucciones</span>
-          <Alert className="size-6" />
+        <DialogHeader>
+          <DialogTitle
+            className={cn(
+              "flex items-center justify-center gap-2 space-y-0 pb-4",
+              "filter-blur text-2xl text-blue-500",
+            )}
+          >
+            <Alert className="size-6" />
+            <span className="">Instrucciones</span>
+            <Alert className="size-6" />
+          </DialogTitle>
         </DialogHeader>
 
-        {/* Incrusté el html con dangerouslySetInnerHTML para que pueda usar tags html */}
-        <p dangerouslySetInnerHTML={{ __html: instructions }} />
+        <DialogDescription className="mb-4 border-b-2 pb-2">
+          {/* Incrusté el html con dangerouslySetInnerHTML para que pueda usar tags html */}
+          <p dangerouslySetInnerHTML={{ __html: instructions }} />
+        </DialogDescription>
+
+        <ApoyoVisual />
       </DialogContent>
     </Dialog>
   );

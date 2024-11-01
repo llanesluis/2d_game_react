@@ -2,66 +2,78 @@ import Next from "@/components/icons/Next";
 import Trophy from "@/components/icons/Trophy";
 import Undo from "@/components/icons/Undo";
 import { cn } from "@/lib/utils";
+import { useGameStore } from "@/stores/game-store";
+import ReactConfetti from "react-confetti";
 
 export default function EndScene() {
+  const playerName = useGameStore((s) => s.playerName);
+  const goToCreditsScene = useGameStore((s) => s.goToCreditsScene);
+
+  const resetGameToInitialValues = useGameStore(
+    (s) => s.resetGameToInitialValues,
+  );
+
   return (
     <section className="relative isolate flex size-full flex-col items-center justify-evenly overflow-hidden p-4 md:p-10">
-      <div className="relative flex flex-col items-center justify-center gap-8">
-        <p className="text-xl">Logros obtenidos:</p>
-
-        <div className="flex gap-4">
-          <GoalUnlocked imageSrc="src/assets/images/trash/bolsa_basura.png" />
-          <GoalUnlocked
-            imageSrc="/src/assets/images/richard.png"
-            className="text-yellow-600"
-          />
-        </div>
-
+      <ReactConfetti height={1600} />
+      <div className="relative flex size-full flex-col items-center justify-between gap-10">
         <h1
           className={cn(
             "text-center uppercase",
-            "text-4xl font-bold sm:text-6xl md:text-7xl",
+            "text-wrap text-7xl font-bold",
           )}
         >
-          <span className="text-muted-foreground">terminar el</span>
-          <br />
-          <span className="filter-blur animate-lights text-red-500">
-            juego basura
-          </span>
+          <span className="text-neutral-200">GAME</span>{" "}
+          <span className="filter-blur animate-lights text-red-500">OVER</span>
         </h1>
-      </div>
 
-      {/* botones */}
-      <div
-        className={cn(
-          "flex items-center justify-center gap-4",
-          "text-2xl text-neutral-50",
-        )}
-      >
-        <button
+        <p className="line-clamp-2 flex w-full flex-col self-start text-ellipsis text-lg">
+          <strong>{`${playerName}:`}</strong>
+          <span>
+            Ahora eres un experto del reciclaje, esta es tu recompensa por
+            completar el juego basura...
+          </span>
+        </p>
+
+        <div className="mt-auto flex flex-col gap-2">
+          <p className="text-xl">Logros obtenidos:</p>
+          <div className="flex gap-4">
+            <GoalUnlocked imageSrc="src/assets/images/trash/bolsaBasura.png" />
+            <GoalUnlocked
+              imageSrc="/src/assets/images/richard.png"
+              className="text-yellow-600"
+            />
+          </div>
+        </div>
+
+        {/* botones */}
+        <div
           className={cn(
-            "flex items-center gap-2",
-            "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
+            "flex items-center justify-center gap-4",
+            "text-2xl text-neutral-50",
           )}
-          onClick={() => {
-            // TODO: dirigir a la escena de inicio y reiniciar el juego (initial state)
-          }}
         >
-          <Undo className="size-8" />
-          INICIO
-        </button>
-        <button
-          className={cn(
-            "flex items-center gap-2",
-            "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
-          )}
-          onClick={() => {
-            // TODO: dirigir a la escena de creditos
-          }}
-        >
-          <Next className="size-8" />
-          CRÉDITOS
-        </button>
+          <button
+            className={cn(
+              "flex items-center gap-2",
+              "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
+            )}
+            onClick={resetGameToInitialValues}
+          >
+            <Undo className="size-6" />
+            INICIO
+          </button>
+          <button
+            className={cn(
+              "flex items-center gap-2",
+              "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
+            )}
+            onClick={goToCreditsScene}
+          >
+            <Next className="size-6" />
+            CRÉDITOS
+          </button>
+        </div>
       </div>
     </section>
   );
