@@ -25,7 +25,7 @@ export default function BeforeStartGame() {
       />
       <StartButton onClick={runGame} />
 
-      <div className="mt-auto">
+      <div className="mt-auto text-left">
         <ApoyoVisual />
       </div>
     </div>

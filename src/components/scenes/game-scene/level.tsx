@@ -15,6 +15,8 @@ import { useEffect } from "react";
 import LevelInfoButton from "./level-info-button";
 import Timer from "./timer";
 import TrashContainer from "./trash-container";
+import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
+import { useAnimatedText } from "./hooks/useAnimatedText";
 
 interface LevelProps {
   levelData: LevelData;
@@ -30,6 +32,21 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
   const time = useGameStore((s) => s.time);
 
   const isLevelCompleted = progress === levelData?.goal;
+
+  const getIntroMessage = () => {
+    if (levelData?.level === 1)
+      return `Hola, qué bueno que estás aquí, <strong>${playerName}</strong>.`;
+    if (levelData?.level === 2)
+      return `!Lo hiciste bien! Gracias por venir, <strong>${playerName}</strong>.`;
+    if (levelData?.level === 3)
+      return `¡Es un desastre! Qué bueno que llegaste, <strong>${playerName}</strong>.`;
+  };
+
+  const text = `${getIntroMessage()} ${levelData?.text}`;
+  const animatedText = useAnimatedText({
+    text,
+    delimiter: " ",
+  });
 
   const calculateProgressBar = () => {
     if (!levelData?.goal) throw Error("levelData.goal is undefined");
@@ -54,19 +71,18 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
       {/* info container */}
       <div
         className={cn(
-          "absolute top-0 z-10 h-[120px] w-full",
+          "absolute top-0 z-10 h-[130px] w-full",
           "flex flex-col justify-between gap-2",
           "bg-black/70 p-2 backdrop-blur",
-          "translate-y-[-100%] transition-all duration-150 ease-out",
-          "translate-y-0 animate-in",
+          "mt-auto",
         )}
       >
         <div className="flex gap-4">
           <Message className="mt-1 size-10 shrink-0 text-neutral-50" />
           <p
-            className="line-clamp-3 w-[70%] text-pretty text-sm"
+            className="line-clamp-3 w-[75%] text-pretty text-sm"
             dangerouslySetInnerHTML={{
-              __html: `<strong>${playerName}</strong>, ${levelData?.text}`,
+              __html: animatedText,
             }}
           />
         </div>
@@ -155,6 +171,10 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
   return (
     <AlertDialog open={openModal}>
       <AlertDialogContent className="flex flex-col items-center gap-8">
+        <AlertDialogTitle>
+          <h2 className="text-2xl">¡Perdiste!</h2>
+        </AlertDialogTitle>
+
         <div className="flex items-center gap-4">
           <Close className="filter-blur size-20 text-blue-500" />
           <SadMood className="filter-blur size-40 text-red-500" />
@@ -162,7 +182,6 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
         </div>
 
         <div className="text-center">
-          <h2 className="text-2xl">¡Perdiste!</h2>
           <p>
             Puedes <strong>intentar nuevamente</strong> o salir del juego.
           </p>
@@ -209,6 +228,10 @@ function LevelCompletedModal({
   return (
     <AlertDialog open={openModal}>
       <AlertDialogContent className="flex flex-col items-center gap-8">
+        <AlertDialogTitle>
+          <h2 className="text-2xl">{`¡Completaste el nivel ${levelData?.level}!`}</h2>
+        </AlertDialogTitle>
+
         <div className="flex items-center gap-4">
           <Check className="filter-blur size-20 text-blue-500" />
           <HappyMood className="filter-blur size-40 text-green-500" />
@@ -216,7 +239,6 @@ function LevelCompletedModal({
         </div>
 
         <div className="text-center">
-          <h2 className="text-2xl">{`¡Completaste el nivel ${levelData?.level}!`}</h2>
           <p>
             Te quedaron <strong>{calculateMinutesAndSeconds(time)}</strong> de
             tiempo.

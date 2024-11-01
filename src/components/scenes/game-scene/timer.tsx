@@ -24,7 +24,7 @@ export default function Timer() {
   return (
     <div className="flex select-none flex-col items-center text-neutral-50">
       <Clock className="size-8" />
-      <span className="text-5xl">{calculateMinutesAndSeconds(time)}</span>
+      <span className="text-4xl">{calculateMinutesAndSeconds(time)}</span>
     </div>
   );
 }

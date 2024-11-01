@@ -1,7 +1,20 @@
 import { useEffect, useState } from "react";
+import { animate, Easing, useMotionValue } from "framer-motion";
 
-const delimiter = "";
-export function useAnimatedText(text: string) {
+type AnimatedTextProps = {
+  text: string;
+  delimiter?: "" | " ";
+  duration?: number;
+  ease?: Easing;
+};
+
+export function useAnimatedText({
+  text,
+  delimiter = "",
+  duration = 3,
+  ease = "linear",
+}: AnimatedTextProps) {
+  const animatedCursor = useMotionValue(0);
   const [cursor, setCursor] = useState(0);
   const [prevText, setPrevText] = useState(text);
   const [isSameText, setIsSameText] = useState(true);
@@ -21,15 +34,15 @@ export function useAnimatedText(text: string) {
     }
 
     const controls = animate(animatedCursor, text.split(delimiter).length, {
-      duration: 3,
-      ease: "easeOut",
+      duration,
+      ease,
       onUpdate(latest) {
         setCursor(Math.floor(latest));
       },
     });
 
     return () => controls.stop();
-  }, [animatedCursor, isSameText, text]);
+  }, [animatedCursor, delimiter, duration, ease, isSameText, text]);
 
   return text.split(delimiter).slice(0, cursor).join(delimiter);
 }

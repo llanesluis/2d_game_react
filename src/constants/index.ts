@@ -77,8 +77,8 @@ export const LEVELS = [
     time: 90,
     speed: 1,
     imageSrc: "/src/assets/images/places/school_2.gif",
-    text: "Recoge los residuos correctamente en la escuela. Separa cada tipo de basura en su contenedor correspondiente.",
-    goal: 5,
+    text: "Tu tarea es ayudar al conserje de la <strong>escuela</strong> a recoger y acomodar los residuos en sus respectivos contenedores.",
+    goal: 20,
     trash: [
       {
         name: "bolsaBasura",
@@ -150,8 +150,8 @@ export const LEVELS = [
     time: 75,
     speed: 1.25,
     imageSrc: "/src/assets/images/places/beach.gif",
-    text: "Ayuda a limpiar la playa. Clasifica correctamente cada tipo de residuo en el contenedor adecuado.",
-    goal: 5,
+    text: "Necesitan de tu ayuda para limpiar la <strong>playa</strong>. !Fíjate bien! La <strong>basura y contenedores cambiaron</strong>. Y... !ahora hay más!",
+    goal: 25,
     trash: [
       {
         name: "lata",
@@ -233,8 +233,8 @@ export const LEVELS = [
     time: 60,
     speed: 1.5,
     imageSrc: "/src/assets/images/places/city_4.gif",
-    text: "La ciudad está llena de residuos. Ayuda a clasificar cada tipo de basura correctamente.",
-    goal: 5,
+    text: "La <strong>ciudad</strong> está llena de residuos de <strong>todo tipo</strong> y se ha vuelto complicado separarla. Ten cuidado... !la basura puede ser <strong>peligrosa</strong>!",
+    goal: 30,
     trash: [
       {
         name: "papel",
