@@ -52,7 +52,7 @@ type Actions = {
 
   setProgress: (progress: State["progress"]) => void;
   increaseProgress: (plus: number) => void;
-
+  decreaseProgress: (minus: number) => void;
   resetProgress: () => void;
 
   resetGameToInitialValues: () => void;
@@ -109,6 +109,13 @@ export const useGameStore = create<State & Actions>((set, get) => ({
 
   setProgress: (progress) => set({ progress }),
   increaseProgress: (plus) => set({ progress: get().progress + plus }),
+  decreaseProgress: (minus) => {
+    const currentProgress = get().progress;
+
+    if (currentProgress <= 0) return set({ progress: 0 });
+
+    set({ progress: currentProgress - minus });
+  },
   resetProgress: () => set({ progress: 0 }),
 
   resetGameToInitialValues: () => {
