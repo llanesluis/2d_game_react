@@ -41,7 +41,6 @@ export function DnDGame({ levelData }: { levelData: LevelData }) {
     <DndContext onDragEnd={handleDragEnd}>
       <TrashSpawner />
 
-      {/* containers //todo: acomodarlos y mejorar */}
       <div
         className={cn(
           "absolute inset-x-0 -bottom-20 z-10 flex justify-evenly transition-all delay-200",

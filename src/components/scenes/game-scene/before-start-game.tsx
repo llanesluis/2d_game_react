@@ -36,8 +36,8 @@ function StartButton(props: React.HTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       className={cn(
-        "relative size-48",
-        "filter-blur text-neutral-50 transition-all hover:text-cyan-200 active:scale-95",
+        "relative size-48 transition-all",
+        "hover:filter-blur opacity-80 hover:opacity-100 active:scale-95",
         props.className,
       )}
       {...props}

@@ -48,6 +48,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
   const animatedText = useAnimatedText({
     text,
     delimiter: " ",
+    duration: 2,
   });
 
   const calculateProgressBar = () => {
@@ -61,7 +62,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
 
   return (
     <div className="relative size-full overflow-hidden">
-      <BackgroundImage imageSrc={levelData?.imageSrc} />
+      <BackgroundImage imageSrc={levelData!.imageSrc} />
 
       <ResetLevelModal openModal={time === 0} />
 
@@ -82,7 +83,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
         <div className="flex gap-4">
           <Message className="mt-1 size-10 shrink-0 text-neutral-50" />
           <p
-            className="line-clamp-3 w-[75%] text-pretty text-sm"
+            className="line-clamp-3 w-[75%] text-pretty text-sm text-neutral-50"
             dangerouslySetInnerHTML={{
               __html: animatedText,
             }}

@@ -23,7 +23,7 @@ export default function EndScene() {
             "text-wrap text-7xl font-bold",
           )}
         >
-          <span className="text-neutral-200">GAME</span>{" "}
+          <span className="text-neutral-700 dark:text-neutral-200">GAME</span>{" "}
           <span className="filter-blur animate-lights text-red-500">OVER</span>
         </h1>
 
