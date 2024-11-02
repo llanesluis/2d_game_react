@@ -1,22 +1,48 @@
 import { Trash } from "@/constants";
+import { Draggable } from "./dnd";
+import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 
-export default function TrashItem({ name, spriteSrc, containerName }: Trash) {
-  const handleDragStart = (e: React.DragEvent<HTMLImageElement>) => {
-    const item = e.currentTarget;
-    const containerName = item.dataset.container!;
+export interface DraggableTrashProps extends Trash {
+  uniqueId: string;
+}
 
-    e.dataTransfer.setData("containerName", containerName);
-  };
+export default function TrashItem({
+  name,
+  spriteSrc,
+  containerName,
+  uniqueId,
+}: DraggableTrashProps) {
+  const uniqueIdMemo = useMemo(() => uniqueId, [uniqueId]);
 
   return (
-    <img
-      key={name}
-      src={spriteSrc}
-      alt={name}
-      className="h-9 max-w-8"
-      draggable={true}
-      data-container={containerName} // acceder a la data con element.dataset.container
-      onDragStart={handleDragStart}
-    />
+    <Draggable id={uniqueIdMemo} data={{ name, spriteSrc, containerName }}>
+      <img
+        key={name}
+        src={spriteSrc}
+        alt={name}
+        className={cn(
+          "max-h-[4.5rem] max-w-[3.5rem]",
+          "shadow-black drop-shadow-2xl",
+        )}
+        draggable={true}
+      />
+    </Draggable>
+  );
+}
+
+export function FallingTrashItem(props: DraggableTrashProps) {
+  const initialPosX = useMemo(() => `${Math.random() * 80}vw`, []);
+
+  return (
+    <span
+      className={cn(
+        "animate-fall absolute inline-flex",
+        "active:stop-animation",
+      )}
+      style={{ left: initialPosX }}
+    >
+      <TrashItem {...props} />
+    </span>
   );
 }

@@ -218,10 +218,27 @@ body {
     animation: move-from-left-to-right 12s linear alternate infinite;
   }
 
+  .animate-fall {
+    animation: animate-fall 12s steps(20) forwards;
+  }
+
+  .stop-animation {
+    animation-play-state: paused;
+  }
+
   strong {
     font-weight: normal;
     color: yellow;
     text-shadow: 0 0 0.5rem yellow;
+  }
+
+  @keyframes animate-fall {
+    0% {
+      top: -50px; /* Inicia justo fuera del contenedor */
+    }
+    100% {
+      top: 100vh; /* Termina justo al final del contenedor */
+    }
   }
 
   @keyframes lights {

@@ -2,6 +2,7 @@ import Start from "@/components/icons/Start";
 import User from "@/components/icons/User";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/stores/game-store";
+import BackgroundImage from "../background-image";
 
 export default function StartScene() {
   const playerName = useGameStore((s) => s.playerName);
@@ -10,7 +11,10 @@ export default function StartScene() {
 
   return (
     <section className="relative isolate flex size-full flex-col justify-between overflow-hidden p-4 md:p-10">
-      <BackgroundImage />
+      <BackgroundImage
+        imageSrc="/src/assets/images/places/start_scene.gif"
+        opacityEffect={70}
+      />
 
       <h1 className="filter-blur text-center text-[min(10vw,100px)] font-bold uppercase text-neutral-50">
         RECICLAFT
@@ -58,18 +62,5 @@ export default function StartScene() {
         </button>
       </form>
     </section>
-  );
-}
-
-function BackgroundImage() {
-  return (
-    <>
-      <img
-        src="/src/assets/images/places/start_scene.gif"
-        alt="Start"
-        className="absolute inset-0 z-[-1] size-full object-cover object-center"
-      />
-      <div className="mask-image absolute inset-0 z-[-1] bg-black/80"></div>
-    </>
   );
 }

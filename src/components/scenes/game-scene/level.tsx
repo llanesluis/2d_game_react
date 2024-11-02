@@ -11,13 +11,14 @@ import { LevelData } from "@/constants";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/stores/game-store";
 import { calculateMinutesAndSeconds } from "@/utils";
+import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 import { useEffect } from "react";
+import { useAnimatedText } from "./hooks/useAnimatedText";
 import LevelInfoButton from "./level-info-button";
 import Timer from "./timer";
-import TrashContainer from "./trash-container";
-import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
-import { useAnimatedText } from "./hooks/useAnimatedText";
-import TrashItem from "./trash-item";
+
+import { DnDGame } from "./DnDGame";
+import BackgroundImage from "../background-image";
 
 interface LevelProps {
   levelData: LevelData;
@@ -91,7 +92,11 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
         <div className="mb-2 flex items-center gap-4 pl-14">
           <div className="flex gap-2">
             {levelData?.trash.map((item) => (
-              <TrashItem key={item.name} {...item} />
+              <img
+                key={item.name}
+                src={item.spriteSrc}
+                className="max-h-9 max-w-12"
+              />
             ))}
           </div>
         </div>
@@ -105,21 +110,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
         </div>
       </div>
 
-      {/* containers //todo: acomodarlos y mejorar */}
-      <div
-        className={cn(
-          "filter-blur absolute inset-x-0 -bottom-20 z-10 flex justify-evenly transition-all delay-200",
-          gameState === "idle" && "translate-y-full",
-        )}
-      >
-        {levelData?.containers.map((container) => (
-          <TrashContainer
-            key={container.name}
-            name={container.name}
-            spriteSrc={container.spriteSrc}
-          />
-        ))}
-      </div>
+      <DnDGame levelData={levelData} />
 
       {/* progress bar */}
       <div
@@ -139,21 +130,6 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
           />
         </div>
       </div>
-    </div>
-  );
-}
-
-function BackgroundImage({ imageSrc }: { imageSrc?: string }) {
-  return (
-    <div className="relative z-[-1] h-full select-none">
-      <img
-        src={imageSrc}
-        alt="Level image"
-        className={cn(
-          "absolute inset-0 bottom-0 z-[-1] size-full object-cover object-right-bottom",
-        )}
-      />
-      <div className="mask-image absolute inset-0 z-[-1] bg-black/20"></div>
     </div>
   );
 }
