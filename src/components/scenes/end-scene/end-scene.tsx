@@ -40,7 +40,7 @@ export default function EndScene() {
           <div className="flex gap-4">
             <GoalUnlocked imageSrc="src/assets/images/trash/bolsaBasura.png" />
             <GoalUnlocked
-              imageSrc="/src/assets/images/richard.png"
+              imageSrc="/assets/images/richard.png"
               className="text-yellow-600"
             />
           </div>

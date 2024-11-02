@@ -1,7 +1,7 @@
 export default function ApoyoVisual() {
   return (
     <div className="flex flex-col gap-4">
-      <img src="/src/assets/images/apoyo.png" alt="Apoyo" />
+      <img src="/assets/images/apoyo.png" alt="Apoyo" />
       <ul className="">
         <li>
           contenedor <span className="text-red-500">rojo</span> : residuos{" "}

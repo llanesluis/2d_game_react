@@ -12,7 +12,7 @@ export default function StartScene() {
   return (
     <section className="relative isolate flex size-full flex-col justify-between overflow-hidden p-4 md:p-10">
       <BackgroundImage
-        imageSrc="/src/assets/images/places/start_scene.gif"
+        imageSrc="/assets/images/places/start_scene.gif"
         opacityEffect={70}
       />
 
