@@ -39,7 +39,10 @@ export default function EndScene() {
         <div className="mt-auto flex flex-col gap-2">
           <p className="text-xl">Logros obtenidos:</p>
           <div className="flex gap-4">
-            <GoalUnlocked imageSrc="src/assets/images/trash/bolsaBasura.png" />
+            <GoalUnlocked
+              imageSrc="/assets/images/trash/bolsaBasura.png"
+              className="from-blue-900 to-green-500"
+            />
             <GoalUnlocked
               imageSrc="/assets/images/richard.png"
               className="text-yellow-600"
@@ -90,7 +93,7 @@ function GoalUnlocked({
   return (
     <div
       className={cn(
-        "relative size-56 bg-gradient-to-tr from-red-900 to-red-500",
+        "relative size-56 bg-gradient-to-tr from-neutral-800 to-neutral-400",
         "filter-blur text-neutral-200 ring-2 ring-muted-foreground",
         props.className,
       )}

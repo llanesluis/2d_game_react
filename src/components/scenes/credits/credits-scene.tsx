@@ -42,7 +42,7 @@ export default function CreditsScene() {
           <p>Luis Fernando Llanes Bojorquez - 21021138</p>
 
           <a
-            href="https://github.com/llanesluis"
+            href="https://github.com/llanesluis/2d_game_react"
             target="_blank"
             rel="noreferrer noopener"
             className="flex items-center gap-2 hover:underline"
