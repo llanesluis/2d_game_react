@@ -10,6 +10,9 @@ import CreditsScene from "./components/scenes/credits/credits-scene";
 import { useGameStore } from "./stores/game-store";
 import Next from "./components/icons/Next";
 import Boost from "./components/icons/Boost";
+import useSound from "use-sound";
+import { useEffect, useState } from "react";
+import ButtonWithSound from "./components/ui/button-with-sound";
 
 function App() {
   const currentScene = useGameStore((s) => s.currentScene);
@@ -20,11 +23,44 @@ function App() {
 
   const playerName = useGameStore((s) => s.playerName);
 
+  const [soundtrackVolume, setSoundtrackVolume] = useState(0.1);
+
+  const [playSoundtrack, { stop }] = useSound("/assets/sounds/soundtrack.mp3", {
+    volume: soundtrackVolume,
+    loop: true,
+  });
+
+  useEffect(() => {
+    playSoundtrack();
+
+    return () => stop();
+  }, [playSoundtrack, stop]);
+
+  const handleVolumeUp = () => {
+    setSoundtrackVolume((prev) => {
+      if (soundtrackVolume >= 2) return 2;
+      return prev + 0.05;
+    });
+  };
+
+  const handleVolumeDown = () => {
+    setSoundtrackVolume((prev) => {
+      if (soundtrackVolume <= 0) return 0;
+      return prev - 0.05;
+    });
+  };
+
+  const handleVolumeOff = () => setSoundtrackVolume(0);
+
   return (
     <div className="app-wrapper">
       <header className="app-header bg-muted">
         <div className="bg-muted-foreground/20 p-1 transition hover:bg-muted-foreground/40">
-          <Settings />
+          <Settings
+            volumeUp={handleVolumeUp}
+            volumeDown={handleVolumeDown}
+            volumeOff={handleVolumeOff}
+          />
         </div>
 
         <span className="mr-auto text-2xl">RECICLAFT</span>
@@ -32,10 +68,12 @@ function App() {
         {/* todo: remover esto */}
         {playerName === "admin" && (
           <div className="mr-auto flex gap-4 pl-12">
-            <button onClick={goToStartScene}>Start</button>
-            <button onClick={goToGameScene}>Game</button>
-            <button onClick={goToEndScene}>End</button>
-            <button onClick={goToCreditsScene}>Credits</button>
+            <ButtonWithSound onClick={goToStartScene}>Start</ButtonWithSound>
+            <ButtonWithSound onClick={goToGameScene}>Game</ButtonWithSound>
+            <ButtonWithSound onClick={goToEndScene}>End</ButtonWithSound>
+            <ButtonWithSound onClick={goToCreditsScene}>
+              Credits
+            </ButtonWithSound>
           </div>
         )}
 
@@ -80,37 +118,37 @@ export function Controls() {
     <div className="flex items-center gap-3">
       {/* todo: remover esto */}
       {playerName === "admin" && (
-        <button
+        <ButtonWithSound
           className="bg-yellow-500/10 p-1 transition hover:bg-yellow-500/20 hover:bg-opacity-100"
           onClick={() => increaseProgress(1)}
         >
           <Boost className="size-6 text-green-500" />
-        </button>
+        </ButtonWithSound>
       )}
       {/* todo: remover esto */}
 
       {playerName === "admin" && (
-        <button
+        <ButtonWithSound
           className="bg-yellow-500/10 p-1 transition hover:bg-yellow-500/20 hover:bg-opacity-100"
-          onClick={goToNextLevel}
+          onClick={() => goToNextLevel()}
         >
           <Next className="size-6 text-blue-500" />
-        </button>
+        </ButtonWithSound>
       )}
 
-      <button
+      <ButtonWithSound
         className="bg-yellow-500/10 p-1 transition hover:bg-yellow-500/20 hover:bg-opacity-100"
-        onClick={restartLevel}
+        onClick={() => restartLevel()}
       >
         <Repeat className="size-6 text-yellow-500" />
-      </button>
+      </ButtonWithSound>
 
-      <button
+      <ButtonWithSound
         className="bg-red-500/10 p-1 transition hover:bg-red-500/20 hover:bg-opacity-100"
-        onClick={resetGameToInitialValues}
+        onClick={() => resetGameToInitialValues()}
       >
         <Close className="size-6 text-red-500" />
-      </button>
+      </ButtonWithSound>
     </div>
   );
 }

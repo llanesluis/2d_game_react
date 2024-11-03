@@ -56,8 +56,6 @@ export default function CreditsScene() {
 
           <p>{new Date().toLocaleString()}</p>
         </div>
-
-        <button></button>
       </div>
     </section>
   );

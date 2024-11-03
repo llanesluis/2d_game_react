@@ -1,15 +1,16 @@
 import { cn } from "@/lib/utils";
-import Sun from "./icons/Sun";
 import Moon from "./icons/Moon";
+import Sun from "./icons/Sun";
 import System from "./icons/System";
 import { useTheme } from "./theme-provider";
+import ButtonWithSound from "./ui/button-with-sound";
 
 export default function ThemeSelector() {
   const { theme, setTheme } = useTheme();
 
   return (
     <div className={cn("contents w-fit")} role="radiogroup">
-      <button
+      <ButtonWithSound
         onClick={() => setTheme("light")}
         aria-checked={theme === "light"}
         aria-label="Switch to light theme"
@@ -23,9 +24,9 @@ export default function ThemeSelector() {
         type="button"
       >
         <Sun className="size-7" />
-      </button>
+      </ButtonWithSound>
 
-      <button
+      <ButtonWithSound
         onClick={() => setTheme("system")}
         aria-checked={theme === "system"}
         aria-label="Switch to system theme"
@@ -39,9 +40,9 @@ export default function ThemeSelector() {
         type="button"
       >
         <System className="size-7" />
-      </button>
+      </ButtonWithSound>
 
-      <button
+      <ButtonWithSound
         onClick={() => setTheme("dark")}
         aria-checked={theme === "dark"}
         aria-label="Switch to dark theme"
@@ -55,7 +56,7 @@ export default function ThemeSelector() {
         type="button"
       >
         <Moon className="size-7" />
-      </button>
+      </ButtonWithSound>
     </div>
   );
 }

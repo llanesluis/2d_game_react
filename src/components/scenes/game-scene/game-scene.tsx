@@ -3,6 +3,7 @@ import { useGameStore } from "@/stores/game-store";
 import { useEffect } from "react";
 import BeforeStartGame from "./before-start-game";
 import Level from "./level";
+import useSound from "use-sound";
 
 export default function GameScene() {
   const gameState = useGameStore((s) => s.gameState);
@@ -14,6 +15,8 @@ export default function GameScene() {
 
   const goToNextLevel = useGameStore((s) => s.goToNextLevel);
   const goToEndScene = useGameStore((s) => s.goToEndScene);
+
+  const [playCelebrationSound] = useSound("/assets/sounds/celebration.mp3");
 
   useEffect(() => {
     const lvl = LEVELS.find((l) => l.level === level);
@@ -63,6 +66,7 @@ export default function GameScene() {
           onCompleteLevel={() => {
             goToEndScene();
             restartLevel();
+            playCelebrationSound();
           }}
         />
       )}

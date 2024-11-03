@@ -1,6 +1,7 @@
 import Next from "@/components/icons/Next";
 import Trophy from "@/components/icons/Trophy";
 import Undo from "@/components/icons/Undo";
+import ButtonWithSound from "@/components/ui/button-with-sound";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/stores/game-store";
 import ReactConfetti from "react-confetti";
@@ -53,7 +54,7 @@ export default function EndScene() {
             "text-2xl text-neutral-50",
           )}
         >
-          <button
+          <ButtonWithSound
             className={cn(
               "flex items-center gap-2",
               "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
@@ -62,8 +63,8 @@ export default function EndScene() {
           >
             <Undo className="size-6" />
             INICIO
-          </button>
-          <button
+          </ButtonWithSound>
+          <ButtonWithSound
             className={cn(
               "flex items-center gap-2",
               "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
@@ -72,7 +73,7 @@ export default function EndScene() {
           >
             <Next className="size-6" />
             CRÉDITOS
-          </button>
+          </ButtonWithSound>
         </div>
       </div>
     </section>

@@ -2,9 +2,11 @@ import { cn } from "@/lib/utils";
 import { useGameStore } from "@/stores/game-store";
 import ApoyoVisual from "./apoyo-visual";
 import Start from "@/components/icons/Start";
+import ButtonWithSound from "@/components/ui/button-with-sound";
 
 export default function BeforeStartGame() {
   const runGame = useGameStore((s) => s.runGame);
+
   return (
     <div
       className={cn(
@@ -23,7 +25,7 @@ export default function BeforeStartGame() {
               <strong>agote el tiempo</strong> para avanzar de nivel.`,
         }}
       />
-      <StartButton onClick={runGame} />
+      <StartButton onClick={() => runGame()} />
 
       <div className="mt-auto text-left">
         <ApoyoVisual />
@@ -34,7 +36,7 @@ export default function BeforeStartGame() {
 
 function StartButton(props: React.HTMLAttributes<HTMLButtonElement>) {
   return (
-    <button
+    <ButtonWithSound
       className={cn(
         "relative size-48 transition-all",
         "hover:filter-blur opacity-80 hover:opacity-100 active:scale-95",
@@ -43,6 +45,6 @@ function StartButton(props: React.HTMLAttributes<HTMLButtonElement>) {
       {...props}
     >
       <Start />
-    </button>
+    </ButtonWithSound>
   );
 }

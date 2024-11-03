@@ -1,10 +1,21 @@
+import { cn } from "@/lib/utils";
 import More from "./icons/More";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { VolumeMinus, VolumeOff, VolumePlus } from "./icons/Volume";
 import ThemeSelector from "./theme-selector";
-import { cn } from "@/lib/utils";
+import ButtonWithSound from "./ui/button-with-sound";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-export default function Settings() {
+interface SettingsProps {
+  volumeUp: () => void;
+  volumeDown: () => void;
+  volumeOff: () => void;
+}
+
+export default function Settings({
+  volumeDown,
+  volumeUp,
+  volumeOff,
+}: SettingsProps) {
   return (
     <Popover>
       <PopoverTrigger className="flex items-center">
@@ -13,15 +24,24 @@ export default function Settings() {
 
       <PopoverContent className="w-fit border-muted-foreground bg-muted">
         <aside className={cn("flex flex-col items-center gap-4")}>
-          <button className="flex size-8 items-center justify-center active:scale-90">
+          <ButtonWithSound
+            className="flex size-8 items-center justify-center active:scale-90"
+            onClick={() => volumeDown()}
+          >
             <VolumeMinus />
-          </button>
-          <button className="flex size-8 items-center justify-center active:scale-90">
+          </ButtonWithSound>
+          <ButtonWithSound
+            className="flex size-8 items-center justify-center active:scale-90"
+            onClick={() => volumeOff()}
+          >
             <VolumeOff />
-          </button>
-          <button className="flex size-8 items-center justify-center active:scale-90">
+          </ButtonWithSound>
+          <ButtonWithSound
+            className="flex size-8 items-center justify-center active:scale-90"
+            onClick={() => volumeUp()}
+          >
             <VolumePlus />
-          </button>
+          </ButtonWithSound>
 
           <ThemeSelector />
         </aside>

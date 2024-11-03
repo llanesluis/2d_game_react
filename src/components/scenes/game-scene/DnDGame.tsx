@@ -5,12 +5,19 @@ import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { LevelData } from "@/constants";
 import { cn } from "@/lib/utils";
 import { DraggableTrashProps, FallingTrashItem } from "./trash-item";
+import useSound from "use-sound";
 
 export function DnDGame({ levelData }: { levelData: LevelData }) {
   const gameState = useGameStore((s) => s.gameState);
 
   const increaseProgress = useGameStore((s) => s.increaseProgress);
   const decreaseProgress = useGameStore((s) => s.decreaseProgress);
+
+  // sound effects
+  const [playCorrectSound] = useSound("/assets/sounds/correct.mp3", {
+    volume: 2,
+  });
+  const [playIncorrectSound] = useSound("/assets/sounds/wrong.mp3");
 
   const handleDragEnd = (e: DragEndEvent) => {
     const draggedElement = e.activatorEvent.target as HTMLElement;
@@ -28,15 +35,18 @@ export function DnDGame({ levelData }: { levelData: LevelData }) {
     console.log({ dropContainer: onDropItem.id });
 
     if (onDropItem.id === draggedItem.data.current?.containerName) {
+      playCorrectSound();
       increaseProgress(1);
 
       // Elimino el elemento solo si era el contenedor correcto
       // de lo contrario, regresa a la posicion original
       draggedElement.parentElement?.removeChild(draggedElement);
     } else {
+      playIncorrectSound();
       decreaseProgress(1);
     }
   };
+
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <TrashSpawner />

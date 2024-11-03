@@ -3,11 +3,17 @@ import User from "@/components/icons/User";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/stores/game-store";
 import BackgroundImage from "../background-image";
+import useSound from "use-sound";
 
 export default function StartScene() {
   const playerName = useGameStore((s) => s.playerName);
   const setPlayerName = useGameStore((s) => s.setPlayerName);
   const goToGameScene = useGameStore((s) => s.goToGameScene);
+
+  const [playTypingSound] = useSound("/assets/sounds/typing_1.mp3");
+  const [playClickSound] = useSound("/assets/sounds/click_1.mp3", {
+    volume: 2,
+  });
 
   return (
     <section className="relative isolate flex size-full flex-col justify-between overflow-hidden p-4 md:p-10">
@@ -22,7 +28,10 @@ export default function StartScene() {
 
       <form
         className="flex flex-col justify-center gap-4"
-        onSubmit={goToGameScene}
+        onSubmit={() => {
+          playClickSound();
+          goToGameScene();
+        }}
       >
         <label
           htmlFor="name"
@@ -42,7 +51,10 @@ export default function StartScene() {
                 "w-full bg-neutral-900 p-4 pl-16 ring-2 ring-muted-foreground/50",
                 playerName && "text-yellow-500",
               )}
-              onChange={(e) => setPlayerName(e.target.value)}
+              onChange={(e) => {
+                playTypingSound();
+                setPlayerName(e.target.value);
+              }}
               value={playerName || ""}
             />
           </div>

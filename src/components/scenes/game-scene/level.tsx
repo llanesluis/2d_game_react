@@ -19,6 +19,7 @@ import Timer from "./timer";
 
 import { DnDGame } from "./DnDGame";
 import BackgroundImage from "../background-image";
+import ButtonWithSound from "@/components/ui/button-with-sound";
 
 interface LevelProps {
   levelData: LevelData;
@@ -47,7 +48,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
   const text = `${getIntroMessage()} ${levelData?.text}`;
   const animatedText = useAnimatedText({
     text,
-    delimiter: " ",
+    delimiter: "",
     duration: 2,
   });
 
@@ -162,7 +163,7 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
 
         {/* botones */}
         <div className="mb-4 flex items-center justify-center gap-4">
-          <button
+          <ButtonWithSound
             className={cn(
               "flex items-center gap-2",
               "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
@@ -171,8 +172,8 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
           >
             <Repeat className="size-6" />
             REINTENTAR
-          </button>
-          <button
+          </ButtonWithSound>
+          <ButtonWithSound
             className={cn(
               "flex items-center gap-2",
               "bg-red-500 p-3 ring-1 ring-muted-foreground hover:bg-red-400 active:scale-95",
@@ -181,7 +182,7 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
           >
             <Undo className="size-6" />
             SALIR
-          </button>
+          </ButtonWithSound>
         </div>
       </AlertDialogContent>
     </AlertDialog>
@@ -219,7 +220,7 @@ function LevelCompletedModal({
         </div>
 
         {/* botones */}
-        <button
+        <ButtonWithSound
           className={cn(
             "mb-4 flex items-center gap-2",
             "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
@@ -228,7 +229,7 @@ function LevelCompletedModal({
         >
           <Next className="size-6" />
           CONTINUAR
-        </button>
+        </ButtonWithSound>
       </AlertDialogContent>
     </AlertDialog>
   );
