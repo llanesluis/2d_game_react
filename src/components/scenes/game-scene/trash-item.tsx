@@ -38,7 +38,7 @@ export function FallingTrashItem(props: DraggableTrashProps) {
     <span
       className={cn(
         "animate-fall absolute inline-flex",
-        "active:stop-animation",
+        "active:stop-animation hover:stop-animation",
       )}
       style={{ left: initialPosX }}
     >

@@ -17,7 +17,7 @@ import { useAnimatedText } from "./hooks/useAnimatedText";
 import LevelInfoButton from "./level-info-button";
 import Timer from "./timer";
 
-import { DnDGame } from "./DnDGame";
+import { DnDGame } from "./dnd-game";
 import BackgroundImage from "../background-image";
 import ButtonWithSound from "@/components/ui/button-with-sound";
 
