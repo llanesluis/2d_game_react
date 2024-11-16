@@ -16,6 +16,8 @@ export default function GameScene() {
   const goToNextLevel = useGameStore((s) => s.goToNextLevel);
   const goToEndScene = useGameStore((s) => s.goToEndScene);
 
+  const addCoins = useGameStore((s) => s.addCoins);
+
   const [playCelebrationSound] = useSound("/assets/sounds/celebration.mp3");
 
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function GameScene() {
           onCompleteLevel={() => {
             goToNextLevel();
             restartLevel();
+            addCoins(5);
           }}
         />
       )}
@@ -56,6 +59,7 @@ export default function GameScene() {
           onCompleteLevel={() => {
             goToNextLevel();
             restartLevel();
+            addCoins(5);
           }}
         />
       )}

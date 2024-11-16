@@ -17,10 +17,7 @@ export default function StartScene() {
 
   return (
     <section className="relative isolate flex size-full flex-col justify-between overflow-hidden p-4 md:p-10">
-      <BackgroundImage
-        imageSrc="/assets/images/places/start_scene.gif"
-        opacityEffect={70}
-      />
+      <BackgroundImage imageSrc="/assets/images/places/start_scene.gif" />
 
       <h1 className="filter-blur text-center text-[min(10vw,100px)] font-bold uppercase text-neutral-50">
         RECICLAFT

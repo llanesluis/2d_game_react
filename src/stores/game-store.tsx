@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   progress: 0,
   time: 0,
   levelData: null,
+  coins: 0,
 } satisfies State;
 
 type Scene = "start" | "game" | "end" | "credits";
@@ -26,6 +27,8 @@ type State = {
 
   time: number;
   progress: number;
+
+  coins: number;
 };
 
 type Actions = {
@@ -56,6 +59,9 @@ type Actions = {
   resetProgress: () => void;
 
   resetGameToInitialValues: () => void;
+
+  consumeCoins: (coins: number) => void;
+  addCoins: (coins: number) => void;
 };
 
 export const useGameStore = create<State & Actions>((set, get) => ({
@@ -71,6 +77,8 @@ export const useGameStore = create<State & Actions>((set, get) => ({
   time: INITIAL_STATE.time,
 
   progress: INITIAL_STATE.progress,
+
+  coins: INITIAL_STATE.coins,
 
   setPlayerName: (playerName) => set({ playerName }),
 
@@ -120,5 +128,12 @@ export const useGameStore = create<State & Actions>((set, get) => ({
 
   resetGameToInitialValues: () => {
     set(INITIAL_STATE);
+  },
+
+  consumeCoins: (coinsToDecrease) => {
+    set({ coins: get().coins - coinsToDecrease });
+  },
+  addCoins: (coinsToAdd) => {
+    set({ coins: get().coins + coinsToAdd });
   },
 }));

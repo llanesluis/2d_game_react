@@ -326,3 +326,133 @@ export const LEVELS = [
     ],
   },
 ] satisfies LevelData[];
+
+export const CONTAINERS_TRASH = [
+  {
+    containerName: "amarilloPlasticosMetal",
+    label: "Metal y Plásticos",
+    spriteSrc: "/assets/images/containers/amarilloPlasticosMetal.png",
+    trash: [
+      {
+        name: "botellaPlastico",
+        spriteSrc: "/assets/images/trash/botellaPlastico.png",
+      },
+      {
+        name: "vasoPlastico",
+        spriteSrc: "/assets/images/trash/vasoPlastico.png",
+      },
+      {
+        name: "lata",
+        spriteSrc: "/assets/images/trash/lata.png",
+      },
+      {
+        name: "llanta",
+        spriteSrc: "/assets/images/trash/llanta.png",
+      },
+      {
+        name: "cubetaArena",
+        spriteSrc: "/assets/images/trash/cubetaArena.png",
+      },
+    ],
+  },
+  {
+    containerName: "azulPapelCarton",
+    label: "Papel y Cartón",
+    spriteSrc: "/assets/images/containers/azulPapelCarton.png",
+    trash: [
+      {
+        name: "papel",
+        spriteSrc: "/assets/images/trash/papel.png",
+      },
+      {
+        name: "carton",
+        spriteSrc: "/assets/images/trash/carton.png",
+      },
+      {
+        name: "avionPapel",
+        spriteSrc: "/assets/images/trash/avionPapel.png",
+      },
+    ],
+  },
+  {
+    containerName: "grisGeneral",
+    label: "Desechos Generales",
+    spriteSrc: "/assets/images/containers/grisGeneral.png",
+    trash: [
+      {
+        name: "bolsaBasura",
+        spriteSrc: "/assets/images/trash/bolsaBasura.png",
+      },
+    ],
+  },
+  {
+    containerName: "naranjaOrganicos",
+    label: "Desechos Orgánicos",
+    spriteSrc: "/assets/images/containers/naranjaOrganicos.png",
+    trash: [
+      {
+        name: "platano",
+        spriteSrc: "/assets/images/trash/platano.png",
+      },
+      {
+        name: "manzana",
+        spriteSrc: "/assets/images/trash/manzana.png",
+      },
+      {
+        name: "coco",
+        spriteSrc: "/assets/images/trash/coco.png",
+      },
+      {
+        name: "pescado",
+        spriteSrc: "/assets/images/trash/pescado.png",
+      },
+      {
+        name: "huesosPescado",
+        spriteSrc: "/assets/images/trash/huesosPescado.png",
+      },
+      {
+        name: "popo",
+        spriteSrc: "/assets/images/trash/popo.png",
+      },
+    ],
+  },
+  {
+    containerName: "verdeVidrio",
+    label: "Vidrios",
+    spriteSrc: "/assets/images/containers/verdeVidrio.png",
+    trash: [
+      {
+        name: "botellaVidrio",
+        spriteSrc: "/assets/images/trash/botellaVidrio.png",
+      },
+      {
+        name: "botellaVidrio2",
+        spriteSrc: "/assets/images/trash/botellaVidrio2.png",
+      },
+      {
+        name: "cerveza",
+        spriteSrc: "/assets/images/trash/cerveza.png",
+      },
+    ],
+  },
+  {
+    containerName: "rojoElectronicosPeligrosos",
+    label: "Electrónicos y Peligrosos",
+    spriteSrc: "/assets/images/containers/rojoElectronicosPeligrosos.png",
+    trash: [
+      {
+        name: "laptop",
+        spriteSrc: "/assets/images/trash/laptop.png",
+      },
+      {
+        name: "foco",
+        spriteSrc: "/assets/images/trash/foco.png",
+      },
+    ],
+  },
+];
+
+export const BUFF_COINS = {
+  clue: 3,
+  aura: 5,
+};

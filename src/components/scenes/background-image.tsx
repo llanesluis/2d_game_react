@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface BackgroundImageProps {
   imageSrc: string;
-  opacityEffect?: 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 80 | 100;
+  opacityEffect?: 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100;
 }
 
 export default function BackgroundImage({
@@ -22,6 +22,7 @@ export default function BackgroundImage({
       <div
         className={cn(
           "absolute inset-0 z-[-1]",
+          "bg-black/40",
           `mask-image bg-black/${opacityEffect}`,
         )}
       ></div>

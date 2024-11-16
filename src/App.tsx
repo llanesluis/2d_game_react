@@ -55,15 +55,13 @@ function App() {
   return (
     <div className="app-wrapper">
       <header className="app-header bg-muted">
-        <div className="bg-muted-foreground/20 p-1 transition hover:bg-muted-foreground/40">
-          <Settings
-            volumeUp={handleVolumeUp}
-            volumeDown={handleVolumeDown}
-            volumeOff={handleVolumeOff}
-          />
-        </div>
+        <Settings
+          volumeUp={handleVolumeUp}
+          volumeDown={handleVolumeDown}
+          volumeOff={handleVolumeOff}
+        />
 
-        <span className="mr-auto text-2xl">RECICLAFT</span>
+        <span className="mr-auto text-xl">RECICLAFT</span>
 
         {/* todo: remover esto */}
         {playerName === "admin" && (
@@ -87,11 +85,6 @@ function App() {
         {currentScene === "end" && <EndScene />}
         {currentScene === "credits" && <CreditsScene />}
       </main>
-
-      <footer className="app-footer bg-muted">
-        <span>Luis Fernando Llanes Bojorquez - 21021138</span>
-        <span>ISOFT02 Videojuegos 2D - 2024</span>
-      </footer>
 
       <SVGEffectBlur />
     </div>

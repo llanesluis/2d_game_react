@@ -1,4 +1,3 @@
-import Clock from "@/components/icons/Clock";
 import { useGameStore } from "@/stores/game-store";
 import { calculateMinutesAndSeconds } from "@/utils";
 import { useEffect } from "react";
@@ -7,6 +6,8 @@ export default function Timer() {
   const time = useGameStore((s) => s.time);
   const decreaseOneSecond = useGameStore((s) => s.decreaseOneSecond);
   const isGamePaused = useGameStore((s) => s.gameState === "paused");
+
+  const timerTime = calculateMinutesAndSeconds(time);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -22,9 +23,8 @@ export default function Timer() {
   }, [decreaseOneSecond, isGamePaused, time]);
 
   return (
-    <div className="flex select-none flex-col items-center text-neutral-50">
-      <Clock className="size-8" />
-      <span className="text-4xl">{calculateMinutesAndSeconds(time)}</span>
+    <div className="absolute inset-x-0 z-20 mx-auto size-fit select-none bg-muted px-2">
+      <span className="rounded-b text-6xl">{timerTime}</span>
     </div>
   );
 }

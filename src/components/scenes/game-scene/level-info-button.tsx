@@ -9,15 +9,22 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import ApoyoVisual from "./apoyo-visual";
+import { useGameStore } from "@/stores/game-store";
+import { BUFF_COINS } from "@/constants";
 
-export default function LevelInfoButton() {
+export default function LevelInfoButton({ onClick }: { onClick: () => void }) {
+  const coins = useGameStore((s) => s.coins);
+
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger disabled={coins <= 0} onClick={onClick}>
         <Alert
           className={cn(
-            "filter-blur size-6 transition-all",
-            "text-blue-500 hover:text-blue-300 active:scale-95",
+            "filter-blur size-8 transition-all",
+            "hover:stop-animation",
+            coins <= 0 && "text-muted-foreground",
+            coins >= BUFF_COINS.clue &&
+              "animate-pulse text-blue-500 hover:text-blue-300 active:scale-95",
           )}
         />
       </DialogTrigger>
@@ -27,11 +34,11 @@ export default function LevelInfoButton() {
           <DialogTitle
             className={cn(
               "flex items-center justify-center gap-2 space-y-0",
-              "filter-blur text-2xl text-blue-500",
+              "text-4xl text-blue-500",
             )}
           >
             <Alert className="size-6" />
-            <span className="">Instrucciones</span>
+            <span>AYUDA</span>
             <Alert className="size-6" />
           </DialogTitle>
         </DialogHeader>
@@ -40,15 +47,8 @@ export default function LevelInfoButton() {
           El tiempo <strong>seguirá corriendo</strong>, consulta las
           instrucciones y ayuda bajo tu propio riesgo.
         </DialogDescription>
-
-        {/* Incrusté el html con dangerouslySetInnerHTML para que pueda usar tags html */}
-        <p dangerouslySetInnerHTML={{ __html: instructions }} />
-
         <ApoyoVisual />
       </DialogContent>
     </Dialog>
   );
 }
-
-const instructions =
-  "Arrastra la basura con el <strong>mouse</strong> y llévala al <strong>contenedor correcto</strong> para ganar puntos. Debes llenar la barra de progreso antes de que se <strong>acabe el tiempo</strong>.";

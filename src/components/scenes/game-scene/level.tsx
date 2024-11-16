@@ -1,25 +1,26 @@
 import Check from "@/components/icons/Check";
 import Close from "@/components/icons/Close";
-import Message from "@/components/icons/Message";
 import { HappyMood, SadMood } from "@/components/icons/Mood";
 import Next from "@/components/icons/Next";
 import Repeat from "@/components/icons/Repeat";
 import Undo from "@/components/icons/Undo";
 import { AlertDialog, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { Progress } from "@/components/ui/progress";
-import { LevelData } from "@/constants";
+import { BUFF_COINS, LevelData } from "@/constants";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/stores/game-store";
 import { calculateMinutesAndSeconds } from "@/utils";
 import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 import { useEffect } from "react";
-import { useAnimatedText } from "./hooks/useAnimatedText";
-import LevelInfoButton from "./level-info-button";
 import Timer from "./timer";
 
-import { DnDGame } from "./dnd-game";
-import BackgroundImage from "../background-image";
 import ButtonWithSound from "@/components/ui/button-with-sound";
+import BackgroundImage from "../background-image";
+import { DnDGame } from "./dnd-game";
+import LevelInfoButton from "./level-info-button";
+import Coin from "@/components/icons/Coin";
+import Aside from "./aside";
+import useSound from "use-sound";
 
 interface LevelProps {
   levelData: LevelData;
@@ -27,7 +28,6 @@ interface LevelProps {
 }
 
 export default function Level({ levelData, onCompleteLevel }: LevelProps) {
-  const playerName = useGameStore((s) => s.playerName);
   const gameState = useGameStore((s) => s.gameState);
   const setGameState = useGameStore((s) => s.setGameState);
 
@@ -35,22 +35,6 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
   const time = useGameStore((s) => s.time);
 
   const isLevelCompleted = progress === levelData?.goal;
-
-  const getIntroMessage = () => {
-    if (levelData?.level === 1)
-      return `Hola, qué bueno que estás aquí, <strong>${playerName}</strong>.`;
-    if (levelData?.level === 2)
-      return `!Lo hiciste bien! Gracias por venir, <strong>${playerName}</strong>.`;
-    if (levelData?.level === 3)
-      return `¡Es un desastre! Qué bueno que llegaste, <strong>${playerName}</strong>.`;
-  };
-
-  const text = `${getIntroMessage()} ${levelData?.text}`;
-  const animatedText = useAnimatedText({
-    text,
-    delimiter: "",
-    duration: 2,
-  });
 
   const calculateProgressBar = () => {
     if (!levelData?.goal) throw Error("levelData.goal is undefined");
@@ -61,8 +45,20 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
     setGameState(isLevelCompleted ? "paused" : "running");
   }, [isLevelCompleted, setGameState]);
 
+  const consumeCoins = useGameStore((s) => s.consumeCoins);
+  const [spendCoinsSound] = useSound("/assets/sounds/spend-coins.mp3", {
+    volume: 3,
+  });
+
+  const handleOpenLevelInfo = () => {
+    consumeCoins(BUFF_COINS.clue);
+    spendCoinsSound();
+  };
+
   return (
-    <div className="relative size-full overflow-hidden">
+    <div className="relative isolate size-full">
+      <Aside />
+
       <BackgroundImage imageSrc={levelData!.imageSrc} />
 
       <ResetLevelModal openModal={time === 0} />
@@ -72,47 +68,21 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
         handleLevelCompleted={onCompleteLevel}
       />
 
+      {gameState !== "idle" && <Timer />}
+
       {/* info container */}
-      <div
-        className={cn(
-          "absolute top-0 z-10 h-[130px] w-full",
-          "flex flex-col justify-between gap-2",
-          "bg-black/70 p-2 backdrop-blur",
-          "mt-auto",
-        )}
-      >
-        <div className="flex gap-4">
-          <Message className="mt-1 size-10 shrink-0 text-neutral-50" />
-          <p
-            className="line-clamp-3 w-[75%] text-pretty text-sm text-neutral-50"
-            dangerouslySetInnerHTML={{
-              __html: animatedText,
-            }}
-          />
-        </div>
 
-        <div className="mb-2 flex items-center gap-4 pl-14">
-          <div className="flex gap-2">
-            {levelData?.trash.map((item) => (
-              <img
-                key={item.name}
-                src={item.spriteSrc}
-                className="max-h-9 max-w-12"
-              />
-            ))}
-          </div>
-        </div>
+      <section className="size-full overflow-hidden">
+        <DnDGame levelData={levelData} />
+      </section>
 
-        <div className="absolute right-2 top-5">
-          {gameState !== "idle" && <Timer />}
-        </div>
-
-        <div className="absolute bottom-3 left-4">
-          <LevelInfoButton />
+      <div className="absolute left-2 top-2 flex items-center gap-1 bg-muted/50 p-2 backdrop-blur">
+        <LevelInfoButton onClick={handleOpenLevelInfo} />
+        <div className="filter-blur flex items-center gap-1 text-yellow-500">
+          <Coin className="size-6" />{" "}
+          <span className="text-xl">{BUFF_COINS.clue}</span>
         </div>
       </div>
-
-      <DnDGame levelData={levelData} />
 
       {/* progress bar */}
       <div
@@ -123,11 +93,11 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
         )}
       >
         <div className="relative p-2">
-          <span className="absolute right-4 top-2 z-10 text-xl text-black">
+          <span className="absolute right-2 top-2 z-10 text-xl text-neutral-200">
             {progress}/{levelData?.goal}
           </span>
           <Progress
-            className="h-6 w-full bg-neutral-50"
+            className="h-6 w-full bg-neutral-900"
             value={calculateProgressBar()}
           />
         </div>

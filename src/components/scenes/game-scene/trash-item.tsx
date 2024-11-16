@@ -32,13 +32,13 @@ export default function TrashItem({
 }
 
 export function FallingTrashItem(props: DraggableTrashProps) {
-  const initialPosX = useMemo(() => `${Math.random() * 80}vw`, []);
+  const initialPosX = useMemo(() => `${Math.random() * 90}%`, []);
 
   return (
     <span
       className={cn(
         "animate-fall absolute inline-flex",
-        "active:stop-animation hover:stop-animation",
+        "active:pause-animation hover:pause-animation",
       )}
       style={{ left: initialPosX }}
     >

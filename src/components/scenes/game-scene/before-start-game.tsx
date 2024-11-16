@@ -10,25 +10,24 @@ export default function BeforeStartGame() {
   return (
     <div
       className={cn(
-        "absolute inset-0 isolate p-20",
-        "flex flex-col items-center justify-center gap-2",
-        "text-center backdrop-blur",
+        "absolute inset-0 isolate p-10",
+        "flex flex-col items-center justify-center gap-8",
+        "backdrop-blur",
       )}
     >
-      <h1 className="pb-4 text-4xl">Aprende cómo se juega:</h1>
-      <p>
-        El <strong>contador comenzará</strong> en cuanto inicies el juego.
-      </p>
+      <h1 className="text-4xl">Aprende cómo se juega:</h1>
       <p
+        className="text-sm opacity-90"
         dangerouslySetInnerHTML={{
-          __html: `Completa la <strong>barra de progreso</strong> antes de que se 
-              <strong>agote el tiempo</strong> para avanzar de nivel.`,
+          __html: `El <strong>contador comenzará</strong> en cuanto inicies el juego. Completa la <strong>barra de progreso</strong> antes de que se 
+          <strong>agote el tiempo</strong> para avanzar de nivel.`,
         }}
       />
-      <StartButton onClick={() => runGame()} />
 
-      <div className="mt-auto text-left">
-        <ApoyoVisual />
+      <ApoyoVisual />
+
+      <div className="mt-auto">
+        <StartButton onClick={() => runGame()} />
       </div>
     </div>
   );
@@ -38,13 +37,15 @@ function StartButton(props: React.HTMLAttributes<HTMLButtonElement>) {
   return (
     <ButtonWithSound
       className={cn(
-        "relative size-48 transition-all",
+        "relative flex items-center bg-yellow-500 pl-4 transition-all",
         "hover:filter-blur opacity-80 hover:opacity-100 active:scale-95",
+        "border border-muted-foreground",
         props.className,
       )}
       {...props}
     >
-      <Start />
+      <span className="text-3xl">COMENZAR</span>
+      <Start className="size-12" />
     </ButtonWithSound>
   );
 }
