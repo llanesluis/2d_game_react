@@ -18,6 +18,8 @@ export default function GameScene() {
 
   const addCoins = useGameStore((s) => s.addCoins);
 
+  const retryCounter = useGameStore((s) => s.retryCounter);
+
   const [playCelebrationSound] = useSound("/assets/sounds/celebration.mp3");
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function GameScene() {
     <section className="relative isolate">
       {level === 1 && (
         <Level
-          key={1}
+          key={retryCounter}
           levelData={LEVELS.find((l) => l.level === 1) as LevelData}
           onCompleteLevel={() => {
             goToNextLevel();
@@ -54,7 +56,7 @@ export default function GameScene() {
       )}
       {level === 2 && (
         <Level
-          key={2}
+          key={retryCounter}
           levelData={LEVELS.find((l) => l.level === 2) as LevelData}
           onCompleteLevel={() => {
             goToNextLevel();
@@ -65,7 +67,7 @@ export default function GameScene() {
       )}
       {level === 3 && (
         <Level
-          key={3}
+          key={retryCounter}
           levelData={LEVELS.find((l) => l.level === 3) as LevelData}
           onCompleteLevel={() => {
             goToEndScene();

@@ -105,6 +105,9 @@ export function Controls() {
   const increaseProgress = useGameStore((s) => s.increaseProgress);
   const playerName = useGameStore((s) => s.playerName);
 
+  const increaseRetryCounter = useGameStore((s) => s.increaseRetryCounter);
+  const retryCount = useGameStore((s) => s.retryCounter);
+
   if (gameState !== "running") return null;
 
   return (
@@ -130,9 +133,15 @@ export function Controls() {
       )}
 
       <ButtonWithSound
-        className="bg-yellow-500/10 p-1 transition hover:bg-yellow-500/20 hover:bg-opacity-100"
-        onClick={() => restartLevel()}
+        className="relative bg-yellow-500/10 p-1 transition hover:bg-yellow-500/20 hover:bg-opacity-100"
+        onClick={() => {
+          restartLevel();
+          increaseRetryCounter();
+        }}
       >
+        <span className="absolute -right-2 bottom-0 size-4 rounded-full bg-red-700 text-center text-xs text-white">
+          {retryCount}
+        </span>
         <Repeat className="size-6 text-yellow-500" />
       </ButtonWithSound>
 

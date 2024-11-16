@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   time: 0,
   levelData: null,
   coins: 0,
+  retryCounter: 0,
 } satisfies State;
 
 type Scene = "start" | "game" | "end" | "credits";
@@ -29,6 +30,8 @@ type State = {
   progress: number;
 
   coins: number;
+
+  retryCounter: number;
 };
 
 type Actions = {
@@ -62,6 +65,8 @@ type Actions = {
 
   consumeCoins: (coins: number) => void;
   addCoins: (coins: number) => void;
+
+  increaseRetryCounter: () => void;
 };
 
 export const useGameStore = create<State & Actions>((set, get) => ({
@@ -79,6 +84,8 @@ export const useGameStore = create<State & Actions>((set, get) => ({
   progress: INITIAL_STATE.progress,
 
   coins: INITIAL_STATE.coins,
+
+  retryCounter: INITIAL_STATE.retryCounter,
 
   setPlayerName: (playerName) => set({ playerName }),
 
@@ -136,4 +143,6 @@ export const useGameStore = create<State & Actions>((set, get) => ({
   addCoins: (coinsToAdd) => {
     set({ coins: get().coins + coinsToAdd });
   },
+
+  increaseRetryCounter: () => set({ retryCounter: get().retryCounter + 1 }),
 }));

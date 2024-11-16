@@ -111,6 +111,7 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
   const resetGameToInitialValues = useGameStore(
     (s) => s.resetGameToInitialValues,
   );
+  const increaseRetryCounter = useGameStore((s) => s.increaseRetryCounter);
 
   return (
     <AlertDialog open={openModal}>
@@ -138,7 +139,10 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
               "flex items-center gap-2",
               "bg-neutral-500 p-3 ring-1 ring-muted-foreground hover:bg-neutral-400 active:scale-95",
             )}
-            onClick={restartLevel}
+            onClick={() => {
+              restartLevel();
+              increaseRetryCounter();
+            }}
           >
             <Repeat className="size-6" />
             REINTENTAR
