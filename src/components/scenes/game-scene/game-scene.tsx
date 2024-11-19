@@ -45,7 +45,7 @@ export default function GameScene() {
     <section className="relative isolate">
       {level === 1 && (
         <Level
-          key={retryCounter}
+          key={retryCounter + level}
           levelData={LEVELS.find((l) => l.level === 1) as LevelData}
           onCompleteLevel={() => {
             goToNextLevel();
@@ -56,7 +56,7 @@ export default function GameScene() {
       )}
       {level === 2 && (
         <Level
-          key={retryCounter}
+          key={retryCounter + level}
           levelData={LEVELS.find((l) => l.level === 2) as LevelData}
           onCompleteLevel={() => {
             goToNextLevel();
@@ -67,7 +67,7 @@ export default function GameScene() {
       )}
       {level === 3 && (
         <Level
-          key={retryCounter}
+          key={retryCounter + level}
           levelData={LEVELS.find((l) => l.level === 3) as LevelData}
           onCompleteLevel={() => {
             goToEndScene();

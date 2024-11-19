@@ -3,8 +3,6 @@ import { CONTAINERS_TRASH } from "@/constants";
 export default function ApoyoVisual() {
   return (
     <div className="grid w-full grid-cols-3 gap-4">
-      {/* TODO: HACER UN OBJETO QUE GUARDE EL CONTENEDOIR SPRITE Y LOS SPRITES DE CADA BASURA PARA MAPEARLOS EN COMO SE JUEGA... */}
-      {/* REMOVER TODO ESTO DE ABAJO Y CAMBIARLO */}
       {CONTAINERS_TRASH.map((item) => {
         const { containerName, spriteSrc, trash, label } = item;
 

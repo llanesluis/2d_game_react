@@ -45,14 +45,13 @@ export default function Aside() {
         )}
       >
         <img
-          src="/assets/images/person.gif"
+          key={levelData?.level}
+          src="/assets/images/kid_loop.gif"
           alt="Persona"
-          className={cn(
-            "absolute translate-x-[-40%] translate-y-[50%] rotate-45",
-          )}
+          className={cn("absolute bottom-0 h-64 translate-x-[-40%] rotate-45")}
         />
 
-        <div className="over relative w-full rounded-[12px] bg-muted p-3">
+        <div className="over absolute bottom-[55%] left-4 w-full rounded-[12px] bg-muted p-3">
           <LevelMessage />
           <div className="message-triangle"></div>
         </div>
