@@ -15,7 +15,9 @@ export default function BeforeStartGame() {
         "backdrop-blur",
       )}
     >
-      <h1 className="text-4xl">Aprende cómo se juega:</h1>
+      <h1 className="text-shadow text-4xl [--shadow-color:hsl(var(--muted-foreground))]">
+        Aprende cómo se juega:
+      </h1>
       <p
         className="text-sm opacity-90"
         dangerouslySetInnerHTML={{
@@ -37,15 +39,15 @@ function StartButton(props: React.HTMLAttributes<HTMLButtonElement>) {
   return (
     <ButtonWithSound
       className={cn(
-        "relative flex items-center bg-yellow-500 pl-4 transition-all",
+        "relative flex items-center bg-yellow-500 py-2 pl-4 transition-all",
         "hover:filter-blur opacity-80 hover:opacity-100 active:scale-95",
         "border border-muted-foreground",
         props.className,
       )}
       {...props}
     >
-      <span className="text-3xl">COMENZAR</span>
-      <Start className="size-12" />
+      <span className="text-shadow text-3xl">COMENZAR</span>
+      <Start className="size-10" />
     </ButtonWithSound>
   );
 }

@@ -1,5 +1,3 @@
-import Check from "@/components/icons/Check";
-import Close from "@/components/icons/Close";
 import { HappyMood, SadMood } from "@/components/icons/Mood";
 import Next from "@/components/icons/Next";
 import Repeat from "@/components/icons/Repeat";
@@ -14,13 +12,14 @@ import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 import { useEffect } from "react";
 import Timer from "./timer";
 
+import Coin from "@/components/icons/Coin";
 import ButtonWithSound from "@/components/ui/button-with-sound";
+import useSound from "use-sound";
 import BackgroundImage from "../background-image";
+import Aside from "./aside";
 import { DnDGame } from "./dnd-game";
 import LevelInfoButton from "./level-info-button";
-import Coin from "@/components/icons/Coin";
-import Aside from "./aside";
-import useSound from "use-sound";
+import ScreenTransition from "@/components/screen-transition";
 
 interface LevelProps {
   levelData: LevelData;
@@ -57,6 +56,8 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
 
   return (
     <div className="relative isolate size-full">
+      <ScreenTransition />
+
       <Aside />
 
       <BackgroundImage imageSrc={levelData!.imageSrc} />
@@ -76,11 +77,11 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
         <DnDGame levelData={levelData} />
       </section>
 
-      <div className="absolute left-2 top-2 flex items-center gap-1 bg-muted/50 p-2 backdrop-blur">
+      <div className="absolute left-2 top-2 flex items-center gap-1 bg-muted/20 p-2 backdrop-blur">
         <LevelInfoButton onClick={handleOpenLevelInfo} />
         <div className="filter-blur flex items-center gap-1 text-yellow-500">
-          <Coin className="size-6" />{" "}
-          <span className="text-xl">{BUFF_COINS.clue}</span>
+          <Coin className="size-6" />
+          <span className="text-2xl">{BUFF_COINS.clue}</span>
         </div>
       </div>
 
@@ -121,9 +122,13 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
         </AlertDialogTitle>
 
         <div className="flex items-center gap-4">
-          <Close className="filter-blur size-20 text-blue-500" />
-          <SadMood className="filter-blur size-40 text-red-500" />
-          <Close className="filter-blur size-20 text-blue-500" />
+          <SadMood className="filter-blur size-20 text-red-500" />
+          <img
+            src="/assets/images/fail.gif"
+            alt="Celebration Kid"
+            className="h-52"
+          />
+          <SadMood className="filter-blur size-20 text-red-500" />
         </div>
 
         <div className="text-center">
@@ -181,9 +186,13 @@ function LevelCompletedModal({
         </AlertDialogTitle>
 
         <div className="flex items-center gap-4">
-          <Check className="filter-blur size-20 text-blue-500" />
-          <HappyMood className="filter-blur size-40 text-green-500" />
-          <Check className="filter-blur size-20 text-blue-500" />
+          <HappyMood className="size-20 text-blue-500" />
+          <img
+            src="/assets/images/celebrate.gif"
+            alt="Celebration Kid"
+            className="h-52"
+          />
+          <HappyMood className="filter-blur size-20 text-blue-500" />
         </div>
 
         <div className="text-center">

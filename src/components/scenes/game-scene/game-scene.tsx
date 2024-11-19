@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import BeforeStartGame from "./before-start-game";
 import Level from "./level";
 import useSound from "use-sound";
+import ScreenTransition from "@/components/screen-transition";
 
 export default function GameScene() {
   const gameState = useGameStore((s) => s.gameState);
@@ -36,6 +37,8 @@ export default function GameScene() {
   if (gameState === "idle") {
     return (
       <section className="relative isolate">
+        <ScreenTransition />
+
         <BeforeStartGame />
       </section>
     );

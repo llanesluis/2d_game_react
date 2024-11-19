@@ -221,6 +221,33 @@ body {
     text-shadow: 0 0 0.5rem rgb(212, 126, 252);
   }
 
+  .animate-transition {
+    --bg-color: hsl(var(--background));
+    background-color: var(--bg-color);
+
+    animation: transition 0.5s ease-in-out forwards;
+  }
+
+  @keyframes transition {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .text-shadow {
+    --shadow-color: #000;
+
+    text-shadow:
+      2px 2px 0 var(--shadow-color),
+      -1px -1px 0 var(--shadow-color),
+      1px -1px 0 var(--shadow-color),
+      -1px 1px 0 var(--shadow-color),
+      1px 1px 0 var(--shadow-color);
+  }
+
   .message-triangle {
     position: absolute;
     bottom: 0;
