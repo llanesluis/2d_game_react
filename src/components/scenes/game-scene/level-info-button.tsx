@@ -17,12 +17,12 @@ export default function LevelInfoButton({ onClick }: { onClick: () => void }) {
 
   return (
     <Dialog>
-      <DialogTrigger disabled={coins <= 0} onClick={onClick}>
+      <DialogTrigger onClick={onClick}>
         <Alert
           className={cn(
             "filter-blur size-8 transition-all",
             "hover:stop-animation",
-            coins <= 0 && "text-muted-foreground",
+            coins < BUFF_COINS.clue && "text-muted-foreground",
             coins >= BUFF_COINS.clue &&
               "animate-pulse text-blue-500 hover:text-blue-300 active:scale-95",
           )}

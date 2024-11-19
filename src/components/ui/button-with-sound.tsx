@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import useSound from "use-sound";
 
 export default function ButtonWithSound({
@@ -14,6 +15,7 @@ export default function ButtonWithSound({
         onClick?.(e);
       }}
       {...props}
+      className={cn("cursor-pointer", props.className)}
     />
   );
 }

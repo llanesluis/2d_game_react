@@ -2,7 +2,7 @@ import { CONTAINERS_TRASH } from "@/constants";
 
 export default function ApoyoVisual() {
   return (
-    <div className="grid w-full grid-cols-3 gap-4">
+    <div className="grid w-full grid-cols-3 gap-8">
       {CONTAINERS_TRASH.map((item) => {
         const { containerName, spriteSrc, trash, label } = item;
 
@@ -11,9 +11,8 @@ export default function ApoyoVisual() {
             key={containerName}
             className="group flex flex-col items-center gap-2 p-2 hover:bg-muted/50"
           >
-            <span className="mb-auto text-center text-sm">{label}</span>
             <img src={spriteSrc} alt={containerName} className="h-28" />
-            <div className="group-hover:filter-blur flex w-full flex-wrap items-center justify-center gap-1">
+            <div className="group-hover:filter-blur flex w-full flex-wrap items-center justify-center gap-2 pt-2">
               {trash.map((trash) => {
                 return (
                   <img
@@ -24,6 +23,7 @@ export default function ApoyoVisual() {
                 );
               })}
             </div>
+            <span className="mb-auto text-center text-sm">{label}</span>
           </div>
         );
       })}

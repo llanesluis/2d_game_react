@@ -20,6 +20,7 @@ import Aside from "./aside";
 import { DnDGame } from "./dnd-game";
 import LevelInfoButton from "./level-info-button";
 import ScreenTransition from "@/components/screen-transition";
+import Eye from "@/components/icons/Eye";
 
 interface LevelProps {
   levelData: LevelData;
@@ -35,6 +36,9 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
 
   const isLevelCompleted = progress === levelData?.goal;
 
+  const hintActive = useGameStore((s) => s.hintActive);
+  const deactivateHint = useGameStore((s) => s.deactivateHint);
+
   const calculateProgressBar = () => {
     if (!levelData?.goal) throw Error("levelData.goal is undefined");
     return (progress / levelData?.goal) * 100;
@@ -44,15 +48,15 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
     setGameState(isLevelCompleted ? "paused" : "running");
   }, [isLevelCompleted, setGameState]);
 
-  const consumeCoins = useGameStore((s) => s.consumeCoins);
-  const [spendCoinsSound] = useSound("/assets/sounds/spend-coins.mp3", {
-    volume: 3,
-  });
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      deactivateHint();
+    }, 10000);
 
-  const handleOpenLevelInfo = () => {
-    consumeCoins(BUFF_COINS.clue);
-    spendCoinsSound();
-  };
+    if (!hintActive) clearTimeout(timer);
+
+    return () => clearTimeout(timer);
+  }, [deactivateHint, hintActive]);
 
   return (
     <div className="relative isolate size-full">
@@ -77,13 +81,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
         <DnDGame levelData={levelData} />
       </section>
 
-      <div className="absolute left-2 top-2 flex items-center gap-1 bg-muted/20 p-2 backdrop-blur">
-        <LevelInfoButton onClick={handleOpenLevelInfo} />
-        <div className="filter-blur flex items-center gap-1 text-yellow-500">
-          <Coin className="size-6" />
-          <span className="text-2xl">{BUFF_COINS.clue}</span>
-        </div>
-      </div>
+      <LevelBonifications />
 
       {/* progress bar */}
       <div
@@ -215,5 +213,64 @@ function LevelCompletedModal({
         </ButtonWithSound>
       </AlertDialogContent>
     </AlertDialog>
+  );
+}
+
+function LevelBonifications() {
+  const consumeCoins = useGameStore((s) => s.consumeCoins);
+  const coins = useGameStore((s) => s.coins);
+
+  const hintActive = useGameStore((s) => s.hintActive);
+  const activateHint = useGameStore((s) => s.activateHint);
+
+  const [spendCoinsSound] = useSound("/assets/sounds/spend-coins.mp3", {
+    volume: 3,
+  });
+
+  const handleOpenLevelInfo = () => {
+    consumeCoins(BUFF_COINS.clue);
+    spendCoinsSound();
+  };
+
+  const handleActivateColorHint = () => {
+    consumeCoins(BUFF_COINS.colorHint);
+    activateHint();
+    spendCoinsSound();
+  };
+
+  return (
+    <div className="absolute left-2 top-2 flex w-32 flex-col gap-1 bg-muted/80 p-2 backdrop-blur">
+      {/* clue/info bonification */}
+      <div className="flex items-center justify-between gap-2">
+        <div className="filter-blur flex items-center gap-1 text-yellow-500">
+          <Coin className="size-6" />
+          <span className="text-2xl">{BUFF_COINS.clue}</span>
+        </div>
+        <ButtonWithSound disabled={coins < BUFF_COINS.clue}>
+          <LevelInfoButton onClick={handleOpenLevelInfo} />
+        </ButtonWithSound>
+      </div>
+
+      {/* color hint bonification */}
+      <div className="flex items-center justify-between gap-2">
+        <div className="filter-blur flex items-center gap-1 text-yellow-500">
+          <Coin className="size-6" />
+          <span className="text-2xl">{BUFF_COINS.colorHint}</span>
+        </div>
+        <ButtonWithSound
+          disabled={coins < BUFF_COINS.colorHint || hintActive}
+          className={cn(
+            "filter-blur transition-all",
+            "hover:stop-animation",
+            "disabled:text-muted-foreground",
+            coins >= BUFF_COINS.colorHint &&
+              "animate-pulse text-purple-500 hover:text-purple-300 active:scale-95",
+          )}
+          onClick={handleActivateColorHint}
+        >
+          <Eye className="size-8" />
+        </ButtonWithSound>
+      </div>
+    </div>
   );
 }

@@ -91,6 +91,7 @@ export function DnDGame({ levelData }: { levelData: LevelData }) {
 export function TrashSpawner() {
   const [spawnedTrash, setSpawnedTrash] = useState<DraggableTrashProps[]>([]);
   const levelData = useGameStore((s) => s.levelData);
+  const gameState = useGameStore((s) => s.gameState);
 
   // Obtener el array de basura para el nivel actual
   const currentTrash = levelData!.trash;
@@ -102,6 +103,9 @@ export function TrashSpawner() {
       const randomIndex = Math.floor(Math.random() * currentTrash.length);
       const randomTrash = currentTrash[randomIndex];
 
+      // Solo generar nueva basura cuando el juego esté corriendo
+      if (gameState !== "running") return;
+
       // Añadir el nuevo elemento con un ID único
       setSpawnedTrash((prevTrash) => [
         ...prevTrash,
@@ -111,7 +115,7 @@ export function TrashSpawner() {
 
     // Limpiar el intervalo cuando el componente se desmonta
     return () => clearInterval(intervalId);
-  }, [currentTrash, seconds]);
+  }, [currentTrash, gameState, seconds]);
 
   return (
     <div className="absolute top-0 size-full">

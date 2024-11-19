@@ -12,7 +12,6 @@ export default function BeforeStartGame() {
       className={cn(
         "absolute inset-0 isolate p-10",
         "flex flex-col items-center justify-center gap-8",
-        "backdrop-blur",
       )}
     >
       <h1 className="text-shadow text-4xl [--shadow-color:hsl(var(--muted-foreground))]">

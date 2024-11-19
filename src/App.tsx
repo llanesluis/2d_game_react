@@ -13,6 +13,7 @@ import Boost from "./components/icons/Boost";
 import useSound from "use-sound";
 import { useEffect, useState } from "react";
 import ButtonWithSound from "./components/ui/button-with-sound";
+import Coin from "./components/icons/Coin";
 
 function App() {
   const currentScene = useGameStore((s) => s.currentScene);
@@ -20,6 +21,9 @@ function App() {
   const goToGameScene = useGameStore((s) => s.goToGameScene);
   const goToEndScene = useGameStore((s) => s.goToEndScene);
   const goToCreditsScene = useGameStore((s) => s.goToCreditsScene);
+  const resetGameToInitialValues = useGameStore(
+    (s) => s.resetGameToInitialValues,
+  );
 
   const playerName = useGameStore((s) => s.playerName);
 
@@ -61,7 +65,12 @@ function App() {
           volumeOff={handleVolumeOff}
         />
 
-        <span className="mr-auto text-xl">RECICLAFT</span>
+        <span
+          className="mr-auto cursor-pointer text-xl"
+          onClick={resetGameToInitialValues}
+        >
+          RECICLAFT
+        </span>
 
         {/* todo: remover esto */}
         {playerName === "admin" && (
@@ -104,6 +113,7 @@ export function Controls() {
   const goToNextLevel = useGameStore((s) => s.goToNextLevel);
   const increaseProgress = useGameStore((s) => s.increaseProgress);
   const playerName = useGameStore((s) => s.playerName);
+  const addCoins = useGameStore((s) => s.addCoins);
 
   const increaseRetryCounter = useGameStore((s) => s.increaseRetryCounter);
   const retryCount = useGameStore((s) => s.retryCounter);
@@ -119,6 +129,15 @@ export function Controls() {
           onClick={() => increaseProgress(1)}
         >
           <Boost className="size-6 text-green-500" />
+        </ButtonWithSound>
+      )}
+      {/* todo: remover esto */}
+      {playerName === "admin" && (
+        <ButtonWithSound
+          className="bg-yellow-500/10 p-1 transition hover:bg-yellow-500/20 hover:bg-opacity-100"
+          onClick={() => addCoins(10)}
+        >
+          <Coin className="size-6 text-yellow-500" />
         </ButtonWithSound>
       )}
       {/* todo: remover esto */}

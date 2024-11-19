@@ -11,9 +11,8 @@ export default function Aside() {
     <>
       <aside
         className={cn(
-          "-right-4 max-h-80 w-48 translate-x-full bg-muted p-4",
+          "max-h-86 -right-4 w-48 translate-x-full bg-muted p-4",
           "absolute flex flex-col gap-6",
-          "border border-muted-foreground/50",
         )}
       >
         <div className="space-y-2">
@@ -26,7 +25,7 @@ export default function Aside() {
 
         <div className="space-y-2">
           <span>basura:</span>
-          <div className="grid grid-cols-4 place-items-center gap-1">
+          <div className="grid grid-cols-4 place-items-center gap-4">
             {levelData?.trash.map((item) => (
               <img
                 key={item.name}

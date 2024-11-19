@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   levelData: null,
   coins: 0,
   retryCounter: 0,
+  hintActive: false,
 } satisfies State;
 
 type Scene = "start" | "game" | "end" | "credits";
@@ -32,6 +33,8 @@ type State = {
   coins: number;
 
   retryCounter: number;
+
+  hintActive: boolean;
 };
 
 type Actions = {
@@ -67,6 +70,9 @@ type Actions = {
   addCoins: (coins: number) => void;
 
   increaseRetryCounter: () => void;
+
+  activateHint: () => void;
+  deactivateHint: () => void;
 };
 
 export const useGameStore = create<State & Actions>((set, get) => ({
@@ -86,6 +92,8 @@ export const useGameStore = create<State & Actions>((set, get) => ({
   coins: INITIAL_STATE.coins,
 
   retryCounter: INITIAL_STATE.retryCounter,
+
+  hintActive: false,
 
   setPlayerName: (playerName) => set({ playerName }),
 
@@ -109,6 +117,8 @@ export const useGameStore = create<State & Actions>((set, get) => ({
     set({
       level: (currentLevel + 1) as Level,
       levelData: nextLevelData,
+
+      hintActive: false,
     });
   },
   setLevelData: (levelData) => {
@@ -145,4 +155,7 @@ export const useGameStore = create<State & Actions>((set, get) => ({
   },
 
   increaseRetryCounter: () => set({ retryCounter: get().retryCounter + 1 }),
+
+  activateHint: () => set({ hintActive: true }),
+  deactivateHint: () => set({ hintActive: false }),
 }));

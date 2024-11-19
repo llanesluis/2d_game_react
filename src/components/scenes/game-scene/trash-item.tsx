@@ -2,6 +2,7 @@ import { Trash } from "@/constants";
 import { Draggable } from "./dnd";
 import { cn } from "@/lib/utils";
 import { useMemo } from "react";
+import { useGameStore } from "@/stores/game-store";
 
 export interface DraggableTrashProps extends Trash {
   uniqueId: string;
@@ -12,8 +13,10 @@ export default function TrashItem({
   spriteSrc,
   containerName,
   uniqueId,
+  containerColor,
 }: DraggableTrashProps) {
   const uniqueIdMemo = useMemo(() => uniqueId, [uniqueId]);
+  const hintActive = useGameStore((s) => s.hintActive);
 
   return (
     <Draggable id={uniqueIdMemo} data={{ name, spriteSrc, containerName }}>
@@ -27,6 +30,10 @@ export default function TrashItem({
         )}
         draggable={true}
       />
+      <span
+        className={cn("absolute inset-0 z-[-1] rounded-full blur-md")}
+        style={{ backgroundColor: hintActive ? containerColor : "transparent" }}
+      />
     </Draggable>
   );
 }
@@ -34,11 +41,14 @@ export default function TrashItem({
 export function FallingTrashItem(props: DraggableTrashProps) {
   const initialPosX = useMemo(() => `${Math.random() * 90}%`, []);
 
+  const gameState = useGameStore((s) => s.gameState);
+
   return (
     <span
       className={cn(
-        "animate-fall absolute inline-flex",
+        "animate-fall absolute isolate inline-flex",
         "active:pause-animation hover:pause-animation",
+        gameState === "paused" && "pause-animation",
       )}
       style={{ left: initialPosX }}
     >

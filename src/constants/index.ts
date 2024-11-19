@@ -51,6 +51,7 @@ export type Trash = {
   name: FirstLevelTrash | SecondLevelTrash | ThirdLevelTrash;
   spriteSrc: string;
   containerName: ContainerName;
+  containerColor: string;
 };
 
 export type Container = {
@@ -84,46 +85,55 @@ export const LEVELS = [
         name: "bolsaBasura",
         spriteSrc: "/assets/images/trash/bolsaBasura.png",
         containerName: "grisGeneral",
+        containerColor: "#A9A9A9",
       },
       {
         name: "papel",
         spriteSrc: "/assets/images/trash/papel.png",
         containerName: "azulPapelCarton",
+        containerColor: "#4169E1",
       },
       {
         name: "avionPapel",
         spriteSrc: "/assets/images/trash/avionPapel.png",
         containerName: "azulPapelCarton",
+        containerColor: "#4169E1",
       },
       {
         name: "botellaPlastico",
         spriteSrc: "/assets/images/trash/botellaPlastico.png",
         containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "platano",
         spriteSrc: "/assets/images/trash/platano.png",
         containerName: "naranjaOrganicos",
+        containerColor: "#FF7B00",
       },
       {
         name: "manzana",
         spriteSrc: "/assets/images/trash/manzana.png",
         containerName: "naranjaOrganicos",
+        containerColor: "#FF7B00",
       },
       {
         name: "carton",
         spriteSrc: "/assets/images/trash/carton.png",
         containerName: "azulPapelCarton",
+        containerColor: "#4169E1",
       },
       {
         name: "lata",
         spriteSrc: "/assets/images/trash/lata.png",
         containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "regla",
         spriteSrc: "/assets/images/trash/regla.png",
         containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
     ],
     containers: [
@@ -150,63 +160,74 @@ export const LEVELS = [
     time: 75,
     speed: 1.25,
     imageSrc: "/assets/images/places/beach.gif",
-    text: "Necesitan de tu ayuda para limpiar la <strong>playa</strong>. !Fíjate bien! La <strong>basura y contenedores cambiaron</strong>. Y... !ahora hay más!",
+    text: "Necesitan de tu ayuda para limpiar la <strong>playa</strong>. ¡Fíjate bien! La <strong>basura y contenedores cambiaron</strong>. Y... ¡ahora hay más!",
     goal: 25,
     trash: [
       {
         name: "lata",
         spriteSrc: "/assets/images/trash/lata.png",
         containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "coco",
         spriteSrc: "/assets/images/trash/coco.png",
         containerName: "naranjaOrganicos",
+        containerColor: "#FF7B00",
       },
       {
         name: "platano",
         spriteSrc: "/assets/images/trash/platano.png",
         containerName: "naranjaOrganicos",
+        containerColor: "#FF7B00",
       },
       {
         name: "botellaVidrio",
         spriteSrc: "/assets/images/trash/botellaVidrio.png",
         containerName: "verdeVidrio",
+        containerColor: "#27C200",
       },
       {
         name: "cerveza",
         spriteSrc: "/assets/images/trash/cerveza.png",
         containerName: "verdeVidrio",
+        containerColor: "#27C200",
       },
       {
         name: "botellaPlastico",
         spriteSrc: "/assets/images/trash/botellaPlastico.png",
         containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "vasoPlastico",
         spriteSrc: "/assets/images/trash/vasoPlastico.png",
         containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "bolsaBasura",
         spriteSrc: "/assets/images/trash/bolsaBasura.png",
         containerName: "grisGeneral",
+        containerColor: "#A9A9A9",
       },
       {
         name: "cubetaArena",
         spriteSrc: "/assets/images/trash/cubetaArena.png",
         containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "pescado",
         spriteSrc: "/assets/images/trash/pescado.png",
         containerName: "naranjaOrganicos",
+        containerColor: "#FF7B00",
       },
       {
         name: "huesosPescado",
         spriteSrc: "/assets/images/trash/huesosPescado.png",
         containerName: "naranjaOrganicos",
+        containerColor: "#FF7B00",
       },
     ],
     containers: [
@@ -233,73 +254,92 @@ export const LEVELS = [
     time: 60,
     speed: 1.5,
     imageSrc: "/assets/images/places/city_4.gif",
-    text: "La <strong>ciudad</strong> está llena de residuos de <strong>todo tipo</strong> y se ha vuelto complicado separarla. Ten cuidado... !la basura puede ser <strong>peligrosa</strong>!",
+    text: "La <strong>ciudad</strong> está llena de residuos de <strong>todo tipo</strong> y se ha vuelto complicado separarla. ¡Ten cuidado... la basura puede ser <strong>peligrosa</strong>!",
     goal: 30,
     trash: [
       {
-        name: "papel",
-        spriteSrc: "/assets/images/trash/papel.png",
-        containerName: "azulPapelCarton",
-      },
-      {
-        name: "carton",
-        spriteSrc: "/assets/images/trash/carton.png",
-        containerName: "azulPapelCarton",
+        name: "bolsaBasura",
+        spriteSrc: "/assets/images/trash/bolsaBasura.png",
+        containerName: "grisGeneral",
+        containerColor: "#A9A9A9",
       },
       {
         name: "botellaPlastico",
         spriteSrc: "/assets/images/trash/botellaPlastico.png",
         containerName: "amarilloPlasticosMetal",
-      },
-      {
-        name: "lata",
-        spriteSrc: "/assets/images/trash/lata.png",
-        containerName: "amarilloPlasticosMetal",
-      },
-      {
-        name: "llanta",
-        spriteSrc: "/assets/images/trash/llanta.png",
-        containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "vasoPlastico",
         spriteSrc: "/assets/images/trash/vasoPlastico.png",
         containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "botellaVidrio",
         spriteSrc: "/assets/images/trash/botellaVidrio.png",
         containerName: "verdeVidrio",
+        containerColor: "#27C200",
       },
       {
         name: "botellaVidrio2",
         spriteSrc: "/assets/images/trash/botellaVidrio2.png",
         containerName: "verdeVidrio",
+        containerColor: "#27C200",
+      },
+      {
+        name: "papel",
+        spriteSrc: "/assets/images/trash/papel.png",
+        containerName: "azulPapelCarton",
+        containerColor: "#4169E1",
+      },
+      {
+        name: "carton",
+        spriteSrc: "/assets/images/trash/carton.png",
+        containerName: "azulPapelCarton",
+        containerColor: "#4169E1",
+      },
+      {
+        name: "lata",
+        spriteSrc: "/assets/images/trash/lata.png",
+        containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
       },
       {
         name: "platano",
         spriteSrc: "/assets/images/trash/platano.png",
         containerName: "naranjaOrganicos",
+        containerColor: "#FF7B00",
       },
       {
         name: "manzana",
         spriteSrc: "/assets/images/trash/manzana.png",
         containerName: "naranjaOrganicos",
-      },
-      {
-        name: "popo",
-        spriteSrc: "/assets/images/trash/popo.png",
-        containerName: "naranjaOrganicos",
-      },
-      {
-        name: "laptop",
-        spriteSrc: "/assets/images/trash/laptop.png",
-        containerName: "rojoElectronicosPeligrosos",
+        containerColor: "#FF7B00",
       },
       {
         name: "foco",
         spriteSrc: "/assets/images/trash/foco.png",
         containerName: "rojoElectronicosPeligrosos",
+        containerColor: "#FF0000",
+      },
+      {
+        name: "llanta",
+        spriteSrc: "/assets/images/trash/llanta.png",
+        containerName: "amarilloPlasticosMetal",
+        containerColor: "#FFEE00",
+      },
+      {
+        name: "laptop",
+        spriteSrc: "/assets/images/trash/laptop.png",
+        containerName: "rojoElectronicosPeligrosos",
+        containerColor: "#FF0000",
+      },
+      {
+        name: "popo",
+        spriteSrc: "/assets/images/trash/popo.png",
+        containerName: "naranjaOrganicos",
+        containerColor: "#FF7B00",
       },
     ],
     containers: [
@@ -316,12 +356,16 @@ export const LEVELS = [
         spriteSrc: "/assets/images/containers/verdeVidrio.png",
       },
       {
+        name: "azulPapelCarton",
+        spriteSrc: "/assets/images/containers/azulPapelCarton.png",
+      },
+      {
         name: "rojoElectronicosPeligrosos",
         spriteSrc: "/assets/images/containers/rojoElectronicosPeligrosos.png",
       },
       {
-        name: "azulPapelCarton",
-        spriteSrc: "/assets/images/containers/azulPapelCarton.png",
+        name: "grisGeneral",
+        spriteSrc: "/assets/images/containers/grisGeneral.png",
       },
     ],
   },
@@ -336,22 +380,27 @@ export const CONTAINERS_TRASH = [
       {
         name: "botellaPlastico",
         spriteSrc: "/assets/images/trash/botellaPlastico.png",
+        containerName: "amarilloPlasticosMetal",
       },
       {
         name: "vasoPlastico",
         spriteSrc: "/assets/images/trash/vasoPlastico.png",
+        containerName: "amarilloPlasticosMetal",
       },
       {
         name: "lata",
         spriteSrc: "/assets/images/trash/lata.png",
+        containerName: "amarilloPlasticosMetal",
       },
       {
         name: "llanta",
         spriteSrc: "/assets/images/trash/llanta.png",
+        containerName: "amarilloPlasticosMetal",
       },
       {
         name: "cubetaArena",
         spriteSrc: "/assets/images/trash/cubetaArena.png",
+        containerName: "amarilloPlasticosMetal",
       },
     ],
   },
@@ -363,75 +412,88 @@ export const CONTAINERS_TRASH = [
       {
         name: "papel",
         spriteSrc: "/assets/images/trash/papel.png",
+        containerName: "azulPapelCarton",
       },
       {
         name: "carton",
         spriteSrc: "/assets/images/trash/carton.png",
+        containerName: "azulPapelCarton",
       },
       {
         name: "avionPapel",
         spriteSrc: "/assets/images/trash/avionPapel.png",
+        containerName: "azulPapelCarton",
       },
     ],
   },
   {
     containerName: "grisGeneral",
-    label: "Desechos Generales",
+    label: "Generales",
     spriteSrc: "/assets/images/containers/grisGeneral.png",
     trash: [
       {
         name: "bolsaBasura",
         spriteSrc: "/assets/images/trash/bolsaBasura.png",
+        containerName: "grisGeneral",
       },
     ],
   },
   {
     containerName: "naranjaOrganicos",
-    label: "Desechos Orgánicos",
+    label: "Orgánicos",
     spriteSrc: "/assets/images/containers/naranjaOrganicos.png",
     trash: [
       {
         name: "platano",
         spriteSrc: "/assets/images/trash/platano.png",
+        containerName: "naranjaOrganicos",
       },
       {
         name: "manzana",
         spriteSrc: "/assets/images/trash/manzana.png",
+        containerName: "naranjaOrganicos",
       },
       {
         name: "coco",
         spriteSrc: "/assets/images/trash/coco.png",
+        containerName: "naranjaOrganicos",
       },
       {
         name: "pescado",
         spriteSrc: "/assets/images/trash/pescado.png",
+        containerName: "naranjaOrganicos",
       },
       {
         name: "huesosPescado",
         spriteSrc: "/assets/images/trash/huesosPescado.png",
+        containerName: "naranjaOrganicos",
       },
       {
         name: "popo",
         spriteSrc: "/assets/images/trash/popo.png",
+        containerName: "naranjaOrganicos",
       },
     ],
   },
   {
     containerName: "verdeVidrio",
-    label: "Vidrios",
+    label: "Vidrio",
     spriteSrc: "/assets/images/containers/verdeVidrio.png",
     trash: [
       {
         name: "botellaVidrio",
         spriteSrc: "/assets/images/trash/botellaVidrio.png",
+        containerName: "verdeVidrio",
       },
       {
         name: "botellaVidrio2",
         spriteSrc: "/assets/images/trash/botellaVidrio2.png",
+        containerName: "verdeVidrio",
       },
       {
         name: "cerveza",
         spriteSrc: "/assets/images/trash/cerveza.png",
+        containerName: "verdeVidrio",
       },
     ],
   },
@@ -443,10 +505,12 @@ export const CONTAINERS_TRASH = [
       {
         name: "laptop",
         spriteSrc: "/assets/images/trash/laptop.png",
+        containerName: "rojoElectronicosPeligrosos",
       },
       {
         name: "foco",
         spriteSrc: "/assets/images/trash/foco.png",
+        containerName: "rojoElectronicosPeligrosos",
       },
     ],
   },
@@ -454,5 +518,5 @@ export const CONTAINERS_TRASH = [
 
 export const BUFF_COINS = {
   clue: 3,
-  aura: 5,
+  colorHint: 10,
 };
