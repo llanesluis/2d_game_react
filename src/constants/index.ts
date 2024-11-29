@@ -499,7 +499,7 @@ export const CONTAINERS_TRASH = [
   },
   {
     containerName: "rojoElectronicosPeligrosos",
-    label: "Electrónicos y Peligrosos",
+    label: "Electrónicos",
     spriteSrc: "/assets/images/containers/rojoElectronicosPeligrosos.webp",
     trash: [
       {
