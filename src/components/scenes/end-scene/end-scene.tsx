@@ -44,14 +44,14 @@ export default function EndScene() {
           <p className="text-xl">Logros obtenidos:</p>
           <div className="flex flex-wrap justify-center gap-8">
             <GoalUnlocked
-              imageSrc="/assets/images/trash/bolsaBasura.png"
+              imageSrc="/assets/images/trash/bolsaBasura.webp"
               className="from-blue-900 to-green-500"
             />
-            <GoalUnlocked imageSrc="/assets/images/goals/richard.png" />
+            <GoalUnlocked imageSrc="/assets/images/goals/richard.webp" />
 
             {retryCounter === 0 && (
               <GoalUnlocked
-                imageSrc="/assets/images/goals/trophy.png"
+                imageSrc="/assets/images/goals/trophy.webp"
                 className="from-yellow-800 to-yellow-500"
               />
             )}
@@ -104,7 +104,7 @@ interface GoalUnlockedProps extends React.HTMLAttributes<HTMLDivElement> {
   text?: string;
 }
 function GoalUnlocked({
-  imageSrc = "src/assets/images/trash/bolsa_basura.png",
+  imageSrc = "src/assets/images/trash/bolsa_basura.webp",
   text,
   ...props
 }: GoalUnlockedProps) {
