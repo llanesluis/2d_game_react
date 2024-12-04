@@ -21,7 +21,9 @@ export default function GameScene() {
 
   const retryCounter = useGameStore((s) => s.retryCounter);
 
-  const [playCelebrationSound] = useSound("/assets/sounds/celebration.mp3");
+  const [playCelebrationSound] = useSound("/assets/sounds/celebration.mp3", {
+    volume: 0.5,
+  });
 
   useEffect(() => {
     const lvl = LEVELS.find((l) => l.level === level);
