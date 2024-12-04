@@ -13,14 +13,14 @@ import { useEffect } from "react";
 import Timer from "./timer";
 
 import Coin from "@/components/icons/Coin";
+import Eye from "@/components/icons/Eye";
+import ScreenTransition from "@/components/screen-transition";
 import ButtonWithSound from "@/components/ui/button-with-sound";
 import useSound from "use-sound";
 import BackgroundImage from "../background-image";
 import Aside from "./aside";
 import { DnDGame } from "./dnd-game";
 import LevelInfoButton from "./level-info-button";
-import ScreenTransition from "@/components/screen-transition";
-import Eye from "@/components/icons/Eye";
 
 interface LevelProps {
   levelData: LevelData;
@@ -48,6 +48,7 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
     setGameState(isLevelCompleted ? "paused" : "running");
   }, [isLevelCompleted, setGameState]);
 
+  // Quita la bonificacion del color de basuras cuando pasna 10 segundos
   useEffect(() => {
     const timer = setTimeout(() => {
       deactivateHint();
@@ -57,6 +58,14 @@ export default function Level({ levelData, onCompleteLevel }: LevelProps) {
 
     return () => clearTimeout(timer);
   }, [deactivateHint, hintActive]);
+
+  // Cuando el timepo se agota y se muestra el modal de reseteo,
+  // se pone en pausa para evitar que las basuras sigan cayendo
+  useEffect(() => {
+    if (time === 0) {
+      setGameState("paused");
+    }
+  }, [setGameState, time]);
 
   return (
     <div className="relative isolate size-full">
@@ -111,6 +120,14 @@ function ResetLevelModal({ openModal }: { openModal: boolean }) {
     (s) => s.resetGameToInitialValues,
   );
   const increaseRetryCounter = useGameStore((s) => s.increaseRetryCounter);
+
+  const [playShowSound] = useSound("/assets/sounds/repeat.mp3", { volume: 2 });
+
+  useEffect(() => {
+    if (openModal) {
+      playShowSound();
+    }
+  }, [openModal, playShowSound]);
 
   return (
     <AlertDialog open={openModal}>
@@ -175,6 +192,14 @@ function LevelCompletedModal({
 }) {
   const levelData = useGameStore((s) => s.levelData);
   const time = useGameStore((s) => s.time);
+
+  const [playShowSound] = useSound("/assets/sounds/pass.mp3", { volume: 1.5 });
+
+  useEffect(() => {
+    if (openModal) {
+      playShowSound();
+    }
+  }, [openModal, playShowSound]);
 
   return (
     <AlertDialog open={openModal}>
